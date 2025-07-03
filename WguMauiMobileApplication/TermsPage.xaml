@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WguMauiMobileApplication.TermsPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#E5E5E5"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <VerticalStackLayout Spacing="0">
+
+        <Grid BackgroundColor="#0A2B4C" Padding="20" HeightRequest="80">
+            <Entry x:Name="TermTitleEntry"
+                   Text="Term 1"
+                   TextColor="White"
+                   FontSize="20"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   WidthRequest="200"
+                   BackgroundColor="Transparent"
+                   HorizontalTextAlignment="Center"/>
+        </Grid>
+
+        <VerticalStackLayout Padding="20" BackgroundColor="White" Spacing="10" Margin="10">
+            <ScrollView Orientation="Horizontal" HeightRequest="50">
+                <HorizontalStackLayout Spacing="10">
+                    <Button Text="Term 1" BackgroundColor="Transparent" TextColor="Grey"/>
+                    <Button Text="Term 2" BackgroundColor="Transparent" TextColor="Grey"/>
+                    <Button Text="Term 3" BackgroundColor="Transparent" TextColor="Grey"/>
+                    <Button Text="Term 4" BackgroundColor="Transparent" TextColor="Grey"/>
+                    <Button Text="Term 5" BackgroundColor="Transparent" TextColor="Grey"/>
+                    <Button Text="Term 6" BackgroundColor="Transparent" TextColor="Grey"/>
+                </HorizontalStackLayout>
+            </ScrollView>
+
+            <VerticalStackLayout Spacing="10" Margin="0,10,0,0">
+                <HorizontalStackLayout VerticalOptions="Center">
+                    <Label Text="Start Date:" FontSize="16" WidthRequest="100"/>
+                    <DatePicker x:Name="TermStartDatePicker"
+                                Date="{x:Static sys:DateTime.Now}"
+                                WidthRequest="200"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout VerticalOptions="Center">
+                    <Label Text="End Date:" FontSize="16" WidthRequest="100"/>
+                    <DatePicker x:Name="TermEndDatePicker"
+                                Date="{x:Static sys:DateTime.Now}"
+                                WidthRequest="200"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+            
+        </VerticalStackLayout>
+        <VerticalStackLayout Padding="20" BackgroundColor="White" Spacing="10" Margin="10">
+            <Label Text="Active" FontAttributes="Bold" FontSize="20" Margin="0,20,0,10"/>
+            <CollectionView x:Name="CourseViewList" ItemsSource="{Binding Courses}" SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray" Padding="0" Margin="0,0,0,10" HasShadow="True">
+                            <VerticalStackLayout Spacing="0">
+
+                                <!-- 🔷 Header color bar -->
+                                <BoxView
+                        HeightRequest="10"
+                        Color="{Binding Status, Converter={StaticResource StatusToColorConverter}}"
+                        HorizontalOptions="Fill" />
+
+                                <!-- 📄 Course info -->
+                                <VerticalStackLayout Padding="10">
+                                    <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold"/>
+                                    <Label Text="{Binding Code}" FontSize="14" />
+                                    <Label Text="{Binding Status}" FontSize="14" />
+                                    <Button Text="Course Info"/>
+                                </VerticalStackLayout>
+
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>
