@@ -36,6 +36,6 @@ This is a cross-platform mobile application built using the .NET MAUI framework 
 │   ├── TermViewModel.cs
 │   ├── CourseViewModel.cs
 │   └── AssessmentViewModel.cs
-├── Services
+├── Servicesgit 
 │   └── DatabaseService.cs
 ├── App.xaml / MainPage.xaml
