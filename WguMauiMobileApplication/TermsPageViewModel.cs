@@ -29,9 +29,9 @@ namespace WguMauiMobileApplication
                     if (_selectedTerm != null)
                         _selectedTerm.PropertyChanged += SelectedTerm_PropertyChanged;
 
-                    // Fire and forget loading courses, ignore CS4014 warning
+                    
                     _ = LoadCoursesForTerm(_selectedTerm?.Id ?? 0);
-                    //LoadCoursesForTerm(_selectedTerm?.Id ?? 0);
+                    
                 }
             }
         }
