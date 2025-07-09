@@ -45,6 +45,30 @@ namespace WguMauiMobileApplication.Services
                     await _database.InsertAsync(course);
             }
         }
+
+        public static async Task ResetTermsToDefaultAsync()
+        {
+            await Init();
+
+            var existingTerms = await _database.Table<Term>().ToListAsync();
+            foreach (var term in existingTerms)
+            {
+                await _database.DeleteAsync(term);
+            }
+
+            for (int i = 1; i <= 6; i++) {
+                var term = new Term
+                {
+                    Title = $"Term {i}",
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Now.AddMonths(6)
+                };
+                await _database.InsertAsync(term);
+            }
+        }
+
+
+
         //Terms
         public static Task<List<Term>> GetTermsAsync() =>
             _database.Table<Term>().ToListAsync();

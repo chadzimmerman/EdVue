@@ -18,7 +18,8 @@
     <VerticalStackLayout Spacing="0">
 
         <Grid BackgroundColor="#0A2B4C" Padding="20" HeightRequest="80">
-            <Entry Text="{Binding SelectedTerm.Title, Mode=TwoWay}" 
+            <Entry Text="{Binding SelectedTerm.Title, Mode=TwoWay}"
+                    Unfocused="TermTitleEntry_Unfocused"
                     TextColor="White"
                     FontSize="20"
                     HorizontalOptions="Center"
@@ -88,10 +89,11 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </VerticalStackLayout>
-        <Button Text="Add New Term"
-        HorizontalOptions="Center"
-        Margin="10"
-        Command="{Binding AddTermCommand}" />
+        <Button Text="Add Course"
+                BackgroundColor="#0A2B4C"
+                HorizontalOptions="Center"
+                Margin="10"
+                Command="{Binding AddCourseCommand}" />
 
     </VerticalStackLayout>
 </ContentPage>
