@@ -82,12 +82,19 @@ namespace WguMauiMobileApplication.Services
         public static Task<int> DeleteTermAsync(Term term) =>
             _database.DeleteAsync(term);
 
-        //Courses
 
+        //Courses
         public static Task<List<Course>> GetCoursesByTermAsync(int termId) => 
             _database.Table<Course>().Where(c => c.TermId == termId).ToListAsync();
 
         public static Task<int> AddCourseAsync(Course course) =>
             _database.InsertAsync(course);
+
+        public static Task<Course> GetCourseByIdAsync(int id) =>
+            _database.Table<Course>().Where(c => c.Id == id).FirstOrDefaultAsync();
+
+        public static Task<int> UpdateCourseAsync(Course course) =>
+            _database.UpdateAsync(course);
+
     }
 }

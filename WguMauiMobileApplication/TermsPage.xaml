@@ -71,16 +71,18 @@
 
                                 <!-- 🔷 Header color bar -->
                                 <BoxView
-                        HeightRequest="10"
-                        Color="{Binding Status, Converter={StaticResource StatusToColorConverter}}"
-                        HorizontalOptions="Fill" />
+                                    HeightRequest="10"
+                                    Color="{Binding IsActive, Converter={StaticResource StatusToColorConverter}}"
+                                    HorizontalOptions="Fill" />
 
                                 <!-- 📄 Course info -->
                                 <VerticalStackLayout Padding="10">
                                     <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold"/>
                                     <Label Text="{Binding Code}" FontSize="14" />
                                     <Label Text="{Binding Status}" FontSize="14" />
-                                    <Button Text="Course Info"/>
+                                    <Button Text="Course Info"
+                                            Command="{Binding BindingContext.NavigateToCourseCommand, Source={x:Reference RootPage}}"
+                                            CommandParameter="{Binding .}" />
                                 </VerticalStackLayout>
 
                             </VerticalStackLayout>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +39,9 @@ namespace WguMauiMobileApplication
 
         public ICommand SelectTermCommand { get; }
         public ICommand AddCourseCommand { get; }
+        public ICommand NavigateToCourseCommand { get; }
+
+
 
         public TermsPageViewModel()
         {
@@ -48,6 +52,16 @@ namespace WguMauiMobileApplication
 
             AddCourseCommand = new Command(async () => await AddCourse());
 
+            NavigateToCourseCommand = new Command<Course>(async (selectedCourse) =>
+            {
+                if (selectedCourse == null)
+                {
+                    Debug.WriteLine("SelectedCourse is null");
+                    return;
+                }
+
+                await Shell.Current.GoToAsync($"{nameof(CoursesPage)}?CourseId={selectedCourse.Id}");
+            });
 
             _ = LoadTerms();
             //if you accidentally add new terms, uncomment this and run it once.

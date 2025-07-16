@@ -8,9 +8,9 @@ namespace WguMauiMobileApplication
         {
             InitializeComponent();
             _ = DatabaseService.Init();
-            //MainPage = new AppShell();
-            MainPage = new TermsPage();
-
+            MainPage = new AppShell();
+            //MainPage = new TermsPage();
+            //MainPage = new CoursesPage();
 
         }
     }

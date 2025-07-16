@@ -8,8 +8,8 @@
     Title="WguMauiMobileApplication">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Terms"
+        ContentTemplate="{DataTemplate local:TermsPage}"
+        Route="TermsPage" />
 
 </Shell>
