@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WguMauiMobileApplication.Pages.InstructorPage"
+             Title="Instructor">
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Image Source="blankprofileimage.png" VerticalOptions="Center" />
+        <Label 
+            Text="Instructor Name:"
+            FontAttributes="Bold"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Entry Text="{Binding Name, Mode=TwoWay}"
+               Placeholder="Enter Name" />
+        <Label 
+            Text="Phone Number:"
+            FontAttributes="Bold"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Entry Text="{Binding Phone, Mode=TwoWay}" Placeholder="Enter Phone Number" />
+        <Label 
+            Text="Email:"
+            FontAttributes="Bold"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+        <Entry Text="{Binding Email, Mode=TwoWay}" Placeholder="Enter Email" />
+        <Button Text="Save Instructor"
+                Clicked="OnSaveInstructorClicked"
+                BackgroundColor="LightBlue"
+                TextColor="Black"
+                HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>

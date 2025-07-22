@@ -21,8 +21,54 @@
                 <Switch IsToggled="{Binding SelectedCourse.IsActive, Mode=TwoWay}" />
             </HorizontalStackLayout>
             <!-- this section should nav to the instructor page -->
-            <!-- this section should nav to the notes page -->
-            <!-- this section should nav to the details page -->
+            <!-- Instructor -->
+            <Grid ColumnDefinitions="*, Auto" Padding="10,0" VerticalOptions="Center">
+                <Label Text="Course Instructor"
+           FontSize="16"
+           VerticalOptions="Center"
+           Grid.Column="0" />
+
+                <ImageButton Source="arrowforwardios.png"
+                 WidthRequest="24"
+                 HeightRequest="24"
+                 BackgroundColor="Transparent"
+                 Clicked="OnInstructorNavClicked"
+                 VerticalOptions="Center"
+                 Grid.Column="1" />
+            </Grid>
+
+            <!-- Notes -->
+            <Grid ColumnDefinitions="*, Auto" Padding="10,0" VerticalOptions="Center">
+                <Label Text="Notes"
+           FontSize="16"
+           VerticalOptions="Center"
+           Grid.Column="0" />
+
+                <ImageButton Source="arrowforwardios.png"
+                 WidthRequest="24"
+                 HeightRequest="24"
+                 BackgroundColor="Transparent"
+                 Clicked="OnNotesNavClicked"
+                 VerticalOptions="Center"
+                 Grid.Column="1" />
+            </Grid>
+
+            <!-- Details -->
+            <Grid ColumnDefinitions="*, Auto" Padding="10,0" VerticalOptions="Center">
+                <Label Text="Details"
+           FontSize="16"
+           VerticalOptions="Center"
+           Grid.Column="0" />
+
+                <ImageButton Source="arrowforwardios.png"
+                 WidthRequest="24"
+                 HeightRequest="24"
+                 BackgroundColor="Transparent"
+                 Clicked="OnDetailsNavClicked"
+                 VerticalOptions="Center"
+                 Grid.Column="1" />
+            </Grid>
+
         </VerticalStackLayout>
     </VerticalStackLayout>
-</ContentView>
+</ContentView> 

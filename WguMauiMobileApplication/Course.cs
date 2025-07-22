@@ -13,6 +13,7 @@ namespace WguMauiMobileApplication
 
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+        public int InstructorId { get; set; }
         private string status;
         public string Status
         {

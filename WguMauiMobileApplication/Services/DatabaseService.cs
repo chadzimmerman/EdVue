@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SQLite;
+using WguMauiMobileApplication.Classes;
 
 namespace WguMauiMobileApplication.Services
 {
@@ -23,6 +24,7 @@ namespace WguMauiMobileApplication.Services
 
             await _database.CreateTableAsync<Term>();
             await _database.CreateTableAsync<Course>();
+            await _database.CreateTableAsync<Instructor>();
 
             var existingTerms = await _database.Table<Term>().ToListAsync();
             if (!existingTerms.Any())
@@ -96,5 +98,31 @@ namespace WguMauiMobileApplication.Services
         public static Task<int> UpdateCourseAsync(Course course) =>
             _database.UpdateAsync(course);
 
+        //Instructors
+        public static async Task<int> UpdateInstructorAsync(Instructor instructor)
+        {
+            if (instructor.Id == 0)
+            {
+                return await _database.InsertAsync(instructor);
+            }
+            else
+            {
+                var existing = await _database.Table<Instructor>().Where(i => i.Id == instructor.Id).FirstOrDefaultAsync();
+                if (existing == null)
+                {
+                    return await _database.InsertAsync(instructor);
+                }
+                else
+                {
+                    return await _database.UpdateAsync(instructor);
+                }
+            }
+        }
+        public static Task<Instructor> GetInstructorByIdAsync(int id) =>
+              _database.Table<Instructor>().Where(i => i.Id == id).FirstOrDefaultAsync();
+        public static async Task<int> AddInstructorAsync(Instructor instructor)
+        {
+            return await _database.InsertAsync(instructor);
+        }
     }
 }
