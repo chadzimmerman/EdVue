@@ -39,6 +39,16 @@ public partial class CourseOverviewView : ContentView
 
     private async void OnDetailsNavClicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(DetailsPage));
+        //await Shell.Current.GoToAsync(nameof(DetailsPage));
+
+        if (BindingContext is CoursesPageViewModel vm && vm.SelectedCourse != null)
+        {
+            var courseId = vm.SelectedCourse.Id;
+            await Shell.Current.GoToAsync($"{nameof(DetailsPage)}?courseId={courseId}");
+        }
+        else
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", "No course selected", "OK");
+        }
     }
 }

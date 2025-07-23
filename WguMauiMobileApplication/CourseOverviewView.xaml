@@ -20,7 +20,6 @@
                 <Label Text="Course Status:" FontSize="16" VerticalOptions="Center" />
                 <Switch IsToggled="{Binding SelectedCourse.IsActive, Mode=TwoWay}" />
             </HorizontalStackLayout>
-            <!-- this section should nav to the instructor page -->
             <!-- Instructor -->
             <Grid ColumnDefinitions="*, Auto" Padding="10,0" VerticalOptions="Center">
                 <Label Text="Course Instructor"

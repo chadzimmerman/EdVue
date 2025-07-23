@@ -25,6 +25,7 @@ namespace WguMauiMobileApplication.Services
             await _database.CreateTableAsync<Term>();
             await _database.CreateTableAsync<Course>();
             await _database.CreateTableAsync<Instructor>();
+            await _database.CreateTableAsync<Note>();
 
             var existingTerms = await _database.Table<Term>().ToListAsync();
             if (!existingTerms.Any())
@@ -98,6 +99,10 @@ namespace WguMauiMobileApplication.Services
         public static Task<int> UpdateCourseAsync(Course course) =>
             _database.UpdateAsync(course);
 
+        public static Task<int> DeleteCourseAsync(Course course) =>
+            _database.DeleteAsync(course);
+
+
         //Instructors
         public static async Task<int> UpdateInstructorAsync(Instructor instructor)
         {
@@ -123,6 +128,52 @@ namespace WguMauiMobileApplication.Services
         public static async Task<int> AddInstructorAsync(Instructor instructor)
         {
             return await _database.InsertAsync(instructor);
+        }
+
+        //Assessments
+        public static async Task<List<Assessment>> GetAssessmentsByCourseIdAsync(int courseId)
+        {
+            return await _database.Table<Assessment>()
+                      .Where(a => a.CourseId == courseId)
+                      .ToListAsync();
+        }
+
+        public static async Task<int> SaveAssessmentAsync(Assessment assessment)
+        {
+            if (assessment.Id != 0)
+            {
+                return await _database.UpdateAsync(assessment);
+            }
+            else
+            {
+                return await _database.InsertAsync(assessment);
+            }
+        }
+
+        public static async Task<int> DeleteAssessmentAsync(Assessment assessment)
+        {
+            return await _database.DeleteAsync(assessment);
+        }
+
+        //Notes
+        public async Task<List<Note>> GetNotesAsync()
+        {
+            return await _database.Table<Note>().ToListAsync();
+        }
+
+        public async Task<int> AddNoteAsync(Note note)
+        {
+            return await _database.InsertAsync(note);
+        }
+
+        public async Task<int> UpdateNoteAsync(Note note)
+        {
+            return await _database.UpdateAsync(note);
+        }
+
+        public async Task<int> DeleteNoteAsync(Note note)
+        {
+            return await _database.DeleteAsync(note);
         }
     }
 }

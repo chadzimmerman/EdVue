@@ -47,9 +47,20 @@ public partial class CoursesPage : ContentPage
 
     private void SwapTabContent()
     {
-        TabContentView.Content = ViewModel.IsOverviewSelected
-            ? new CourseOverviewView()
-            : new CourseAssessmentsView();
+        if (ViewModel.IsOverviewSelected)
+        {
+            TabContentView.Content = new CourseOverviewView();
+        }
+        else
+        {
+            var assessmentsView = new CourseAssessmentsView();
+            assessmentsView.LoadForCourse(ViewModel.SelectedCourse.Id);
+            TabContentView.Content = assessmentsView;
+        }
+
+        //TabContentView.Content = ViewModel.IsOverviewSelected
+        //    ? new CourseOverviewView()
+        //    : new CourseAssessmentsView();
     }
 
     private async void OnEntryUnfocused(object sender, FocusEventArgs e)
@@ -59,4 +70,5 @@ public partial class CoursesPage : ContentPage
             await DatabaseService.UpdateCourseAsync(vm.SelectedCourse);
         }
     }
+
 }
