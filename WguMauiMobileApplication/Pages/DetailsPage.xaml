@@ -18,6 +18,11 @@
                 <Button Text="Save" Clicked="OnSaveClicked" />
                 <Button Text="Delete" TextColor="Red" Clicked="OnDeleteClicked" />
             </HorizontalStackLayout>
+            <Button 
+                Text="Set Alerts for Start/End Date" 
+                Clicked="OnSetAlertsClicked"
+                BackgroundColor="DarkBlue" 
+                TextColor="White" />
 
         </VerticalStackLayout>
     </ScrollView>
