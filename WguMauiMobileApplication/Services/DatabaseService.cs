@@ -85,6 +85,14 @@ namespace WguMauiMobileApplication.Services
         public static Task<int> DeleteTermAsync(Term term) =>
             _database.DeleteAsync(term);
 
+        public static Task<Term> GetTermByNameAsync(string name)
+        {
+            return _database.Table<Term>()
+                            .Where(t => t.Title == name)
+                            .FirstOrDefaultAsync();
+        }
+
+
 
         //Courses
         public static Task<List<Course>> GetCoursesByTermAsync(int termId) => 
