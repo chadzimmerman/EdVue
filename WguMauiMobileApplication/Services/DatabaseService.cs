@@ -54,20 +54,13 @@ namespace WguMauiMobileApplication.Services
             await Init();
 
             var existingTerms = await _database.Table<Term>().ToListAsync();
-            foreach (var term in existingTerms)
+            foreach (var terms in existingTerms)
             {
-                await _database.DeleteAsync(term);
+                await _database.DeleteAsync(terms);
             }
 
-            for (int i = 1; i <= 6; i++) {
-                var term = new Term
-                {
-                    Title = $"Term {i}",
-                    StartDate = DateTime.Now,
-                    EndDate = DateTime.Now.AddMonths(6)
-                };
-                await _database.InsertAsync(term);
-            }
+               
+            
         }
 
 
@@ -182,6 +175,73 @@ namespace WguMauiMobileApplication.Services
         public async Task<int> DeleteNoteAsync(Note note)
         {
             return await _database.DeleteAsync(note);
+        }
+
+
+
+
+
+
+
+
+        //eval data
+        public static async Task SeedDemoData()
+        {
+
+            var existingTerm = await DatabaseService.GetTermByNameAsync("Evaluation Term");
+            if (existingTerm == null)
+            {
+                var term = new Term
+                {
+                    Title = "Sample Term",
+                    StartDate = DateTime.Now.Date,
+                    EndDate = DateTime.Now.AddMonths(4).Date
+                };
+                await DatabaseService.AddTermAsync(term);
+
+                var instructor = new Instructor
+                {
+                    Name = "Anika Patel",
+                    Phone = "555-123-4567",
+                    Email = "anika.patel@strimeuniversity.edu"
+                };
+                await DatabaseService.AddInstructorAsync(instructor);
+
+                var course = new Course
+                {
+                    Name = "Evaluation Course",
+                    Code = "CSE101",
+                    Status = "Open",
+                    StartDate = DateTime.Today,
+                    EndDate = DateTime.Today.AddMonths(6),
+                    TermId = term.Id,
+                    InstructorId = instructor.Id
+                };
+                await DatabaseService.AddCourseAsync(course);
+
+                var assessment1 = new Assessment
+                {
+                    CourseId = course.Id,
+                    Name = "Performance Assessment",
+                    Type = "Performance",
+                    StartDate = DateTime.Now.AddDays(1).Date,
+                    EndDate = DateTime.Now.AddDays(7).Date,
+                    Notify = true,
+                };
+
+                var assessment2 = new Assessment
+                {
+                    CourseId = course.Id,
+                    Name = "Objective Assessment",
+                    Type = "Objective",
+                    StartDate = DateTime.Now.AddDays(8).Date,
+                    EndDate = DateTime.Now.AddDays(14).Date,
+                    Notify = false
+                };
+
+                await DatabaseService.SaveAssessmentAsync(assessment1);
+                await DatabaseService.SaveAssessmentAsync(assessment2);
+            }
         }
     }
 }

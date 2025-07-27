@@ -64,9 +64,17 @@ namespace WguMauiMobileApplication
             });
 
             _ = LoadTerms();
+            
             //if you accidentally add new terms, uncomment this and run it once.
-            //_ = ResetDataAndLoad(); 
+            //_ = ResetDataAndLoad();
+            //_ = SeedEvaluationDataAndLoad();
 
+        }
+        private async Task SeedEvaluationDataAndLoad()
+        {
+            await DatabaseService.Init();
+            await DatabaseService.SeedDemoData(); // move this logic to a place DatabaseService can call
+            await LoadTerms();
         }
 
         public async Task LoadTerms()
