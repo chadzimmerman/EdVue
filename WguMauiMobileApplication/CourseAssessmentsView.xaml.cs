@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using Plugin.LocalNotification;
 using WguMauiMobileApplication.Classes;
 using WguMauiMobileApplication.Services;
 
@@ -9,7 +10,9 @@ public partial class CourseAssessmentsView : ContentView
 	public ObservableCollection<Assessment> Assessments { get; set; } = new();
 
 	private int _courseId;
-	public CourseAssessmentsView()
+    private int? editingAssessmentId = null;
+
+    public CourseAssessmentsView()
 	{
 		InitializeComponent();
 		BindingContext = this;
@@ -49,10 +52,38 @@ public partial class CourseAssessmentsView : ContentView
 
 		Assessments.Add(newAssessment);
 
-		//TODO: if notify is true, schedule notification here for the notifications tab
-	}
+        if (newAssessment.Notify)
+        {
+            var startNotification = new NotificationRequest
+            {
+                Title = "Assessment Starting",
+                Description = $"{newAssessment.Name} starts today!",
+                Schedule = new NotificationRequestSchedule
+                {
+                    NotifyTime = newAssessment.StartDate,
+					//NotifyTime = DateTime.Now.AddSeconds(10),
+                    RepeatType = NotificationRepeat.No
+                }
+            };
 
-	private async void OnDeleteAssessmentClicked(object sender, EventArgs e)
+            var endNotification = new NotificationRequest
+            {
+                Title = "Assessment Due",
+                Description = $"{newAssessment.Name} is due today!",
+                Schedule = new NotificationRequestSchedule
+                {
+                    NotifyTime = newAssessment.EndDate,
+                    RepeatType = NotificationRepeat.No
+                }
+            };
+
+            await LocalNotificationCenter.Current.Show(startNotification);
+            await LocalNotificationCenter.Current.Show(endNotification);
+        }
+
+    }
+
+    private async void OnDeleteAssessmentClicked(object sender, EventArgs e)
 	{
 		var button = (Button)sender;
 		var id = (int)button.CommandParameter;
@@ -62,5 +93,25 @@ public partial class CourseAssessmentsView : ContentView
 			await DatabaseService.DeleteAssessmentAsync(toRemove);
 			Assessments.Remove(toRemove);
 		}
+	}
+
+	private void OnEditAssessmentClicked(object sender, EventArgs e)
+	{
+		var button = (Button)sender;
+		var id = (int)button.CommandParameter;
+		var toEdit = Assessments.FirstOrDefault(a => a.Id == id);
+
+		if (toEdit != null)
+		{
+			AssessmentNameEntry.Text = toEdit.Name;
+			AssessmentTypePicker.SelectedItem = toEdit.Type;
+            AssessmentStartDate.Date = toEdit.StartDate;
+            AssessmentEndDate.Date = toEdit.EndDate;
+            NotifySwitch.IsToggled = toEdit.Notify;
+
+            // Store the ID for update later
+            editingAssessmentId = toEdit.Id;
+            AddAssessmentButton.Text = "Update Assessment";
+        }
 	}
 }

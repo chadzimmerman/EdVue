@@ -29,7 +29,7 @@
                         <Switch x:Name="NotifySwitch" />
                     </StackLayout>
 
-                    <Button Text="Add Assesment" Clicked="OnAddAssessmentClicked" />
+                <Button Text="Add Assesment" Clicked="OnAddAssessmentClicked" x:Name="AddAssessmentButton" />
                 </VerticalStackLayout>
             </Frame>
 
@@ -47,8 +47,21 @@
                                 <Label Text="{Binding StartDate, StringFormat='Start: {0:d}'}" />
                                 <Label Text="{Binding EndDate, StringFormat='End: {0:d}'}" />
                                 <Label Text="{Binding Notify, StringFormat='Notify: {0}'}" />
-                                <Button Text="Delete" Clicked="OnDeleteAssessmentClicked" CommandParameter="{Binding Id}" />
-                            </VerticalStackLayout>
+                                <!--<Button Text="Delete" Clicked="OnDeleteAssessmentClicked" CommandParameter="{Binding Id}" />
+                                <Button Text="Edit" Clicked="OnEditAssessmentClicked" CommandParameter="{Binding Id}" />-->
+                            <HorizontalStackLayout Spacing="10">
+                                <Button Text="Edit"
+                                        Clicked="OnEditAssessmentClicked"
+                                        HorizontalOptions="Start"
+                                        StyleClass="SmallButton"
+                                        CommandParameter="{Binding Id}"/>
+
+                                <Button Text="Delete"
+                                        Clicked="OnDeleteAssessmentClicked"
+                                        HorizontalOptions="End"
+                                        StyleClass="SmallButton" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
