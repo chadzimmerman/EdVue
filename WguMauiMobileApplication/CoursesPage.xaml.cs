@@ -58,9 +58,6 @@ public partial class CoursesPage : ContentPage
             TabContentView.Content = assessmentsView;
         }
 
-        //TabContentView.Content = ViewModel.IsOverviewSelected
-        //    ? new CourseOverviewView()
-        //    : new CourseAssessmentsView();
     }
 
     private async void OnEntryUnfocused(object sender, FocusEventArgs e)

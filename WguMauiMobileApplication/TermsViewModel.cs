@@ -43,7 +43,6 @@ namespace WguMauiMobileApplication
 
             EditTermCommand = new Command<Term>(async term =>
             {
-                // For now, just update title as an example
                 term.Title += " (Edited)";
                 await DatabaseService.UpdateTermAsync(term);
                 LoadTerms();

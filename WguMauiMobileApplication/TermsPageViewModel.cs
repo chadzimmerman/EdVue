@@ -64,16 +64,11 @@ namespace WguMauiMobileApplication
             });
 
             _ = LoadTerms();
-            
-            //if you accidentally add new terms, uncomment this and run it once.
-            //_ = ResetDataAndLoad();
-            //_ = SeedEvaluationDataAndLoad();
-
         }
         private async Task SeedEvaluationDataAndLoad()
         {
             await DatabaseService.Init();
-            await DatabaseService.SeedDemoData(); // move this logic to a place DatabaseService can call
+            await DatabaseService.SeedDemoData(); // move this logic to a place DatabaseService can call?
             await LoadTerms();
         }
 
@@ -86,7 +81,6 @@ namespace WguMauiMobileApplication
             foreach (var term in list)
                 Terms.Add(term);
 
-            // Optional: auto-select first term
             if (Terms.Any())
                 SelectedTerm = Terms.Last();
         }
@@ -129,11 +123,9 @@ namespace WguMauiMobileApplication
         {
             if (e.PropertyName == nameof(Term.Title) || e.PropertyName == nameof(Term.StartDate) || e.PropertyName == nameof(Term.EndDate))
             {
-                // When the SelectedTerm properties change, update the database
                 var term = sender as Term;
                 if (term != null)
                 {
-                    // Save changes asynchronously but fire and forget here (or you can await elsewhere)
                     _ = DatabaseService.UpdateTermAsync(term);
                 }
             }

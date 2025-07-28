@@ -178,12 +178,6 @@ namespace WguMauiMobileApplication.Services
         }
 
 
-
-
-
-
-
-
         //eval data
         public static async Task SeedDemoData()
         {

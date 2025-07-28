@@ -66,7 +66,7 @@ public partial class DetailsPage : ContentPage
             Description = $"Your course starts today!",
             Schedule = new NotificationRequestSchedule
             {
-                NotifyTime = _course.StartDate.Date, //set for 12:00AM
+                NotifyTime = _course.StartDate.Date, //set for 12:00AM, change later if you need
                 NotifyRepeatInterval = TimeSpan.FromDays(1),
                 RepeatType = NotificationRepeat.No
             }

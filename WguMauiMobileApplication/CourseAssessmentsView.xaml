@@ -47,8 +47,6 @@
                                 <Label Text="{Binding StartDate, StringFormat='Start: {0:d}'}" />
                                 <Label Text="{Binding EndDate, StringFormat='End: {0:d}'}" />
                                 <Label Text="{Binding Notify, StringFormat='Notify: {0}'}" />
-                                <!--<Button Text="Delete" Clicked="OnDeleteAssessmentClicked" CommandParameter="{Binding Id}" />
-                                <Button Text="Edit" Clicked="OnEditAssessmentClicked" CommandParameter="{Binding Id}" />-->
                             <HorizontalStackLayout Spacing="10">
                                 <Button Text="Edit"
                                         Clicked="OnEditAssessmentClicked"

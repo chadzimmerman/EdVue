@@ -23,7 +23,6 @@ public partial class CourseOverviewView : ContentView
         if (BindingContext is CoursesPageViewModel vm && vm.SelectedCourse != null)
         {
             var instructorId = vm.SelectedCourse.InstructorId;
-            //await Shell.Current.GoToAsync($"{nameof(InstructorPage)}?instructorId={instructorId}");
             await Shell.Current.GoToAsync($"{nameof(InstructorPage)}?instructorId={instructorId}&courseId={vm.SelectedCourse.Id}");
         }
         else
@@ -39,7 +38,6 @@ public partial class CourseOverviewView : ContentView
 
     private async void OnDetailsNavClicked(object sender, EventArgs e)
     {
-        //await Shell.Current.GoToAsync(nameof(DetailsPage));
 
         if (BindingContext is CoursesPageViewModel vm && vm.SelectedCourse != null)
         {
