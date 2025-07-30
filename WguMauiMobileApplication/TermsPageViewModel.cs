@@ -40,10 +40,8 @@ namespace WguMauiMobileApplication
         public ICommand SelectTermCommand { get; }
         public ICommand AddCourseCommand { get; }
         public ICommand NavigateToCourseCommand { get; }
-        public ICommand DeleteTermCommand { get; }
         public ICommand AddTermCommand { get; }
-
-
+        public ICommand DeleteSelectedTermCommand { get; }
 
 
         public TermsPageViewModel()
@@ -54,7 +52,8 @@ namespace WguMauiMobileApplication
             });
 
             AddCourseCommand = new Command(async () => await AddCourse());
-            DeleteTermCommand = new Command<Term>(async term => await DeleteTerm(term));
+            DeleteSelectedTermCommand = new Command(async () => await DeleteSelectedTerm());
+
             AddTermCommand = new Command(async () => await AddTerm());
 
             NavigateToCourseCommand = new Command<Course>(async (selectedCourse) =>
@@ -90,18 +89,19 @@ namespace WguMauiMobileApplication
                 SelectedTerm = Terms.Last();
         }
 
-        private async Task DeleteTerm(Term term)
+        private async Task DeleteSelectedTerm()
         {
-            if (term == null) return;
+            if (SelectedTerm == null)
+                return;
 
             bool confirm = await Application.Current.MainPage.DisplayAlert(
                 "Delete Term",
-                $"Are you sure you want to delete \"{term.Title}\"?",
+                $"Are you sure you want to delete \"{SelectedTerm.Title}\"?",
                 "Yes", "No");
 
             if (confirm)
             {
-                await DatabaseService.DeleteTermAsync(term);
+                await DatabaseService.DeleteTermAsync(SelectedTerm);
                 await LoadTerms();
             }
         }
@@ -155,15 +155,40 @@ namespace WguMauiMobileApplication
                 Courses.Add(course);
         }
 
-        private void SelectedTerm_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private async void SelectedTerm_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(Term.Title) || e.PropertyName == nameof(Term.StartDate) || e.PropertyName == nameof(Term.EndDate))
+            var term = sender as Term;
+            if (term == null) return;
+
+            if (e.PropertyName == nameof(Term.Title) || 
+                e.PropertyName == nameof(Term.StartDate) || 
+                e.PropertyName == nameof(Term.EndDate))
             {
-                var term = sender as Term;
-                if (term != null)
+                if (term.StartDate > term.EndDate)
                 {
-                    _ = DatabaseService.UpdateTermAsync(term);
+                    await Application.Current.MainPage.DisplayAlert(
+                        "Invalid Dates",
+                        "Start date cannot be after end date.",
+                        "OK");
+                    term.EndDate = term.StartDate;
+                    return;
                 }
+
+                if (term.EndDate < term.StartDate)
+                {
+                    await Application.Current.MainPage.DisplayAlert(
+                        "Invalid Dates",
+                        "End date cannot be before start date.",
+                        "OK");
+                    term.StartDate = term.EndDate;
+                    return;
+                }
+            }
+            if (e.PropertyName == nameof(Term.Title) ||
+                e.PropertyName == nameof(Term.StartDate) ||
+                e.PropertyName == nameof(Term.EndDate))
+            {
+                await DatabaseService.UpdateTermAsync(term);
             }
         }
 

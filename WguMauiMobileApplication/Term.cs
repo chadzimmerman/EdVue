@@ -27,13 +27,39 @@ namespace WguMauiMobileApplication
             }
         }
 
+        private DateTime _startDate;
+        public DateTime StartDate
+        {
+            get => _startDate;
+            set
+            {
+                if (_startDate != value)
+                {
+                    _startDate = value;
+                    OnPropertyChanged(nameof(StartDate));
+                }
+            }
+        }
 
-        public DateTime StartDate { get; set; }
+        private DateTime _endDate;
+        public DateTime EndDate
+        {
+            get => _endDate;
+            set
+            {
+                if (_endDate != value)
+                {
+                    _endDate = value;
+                    OnPropertyChanged(nameof(EndDate));
+                }
+            }
+        }
+        //public DateTime StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        //public DateTime EndDate { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged(string propertyName) =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        protected void OnPropertyChanged(string name) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }

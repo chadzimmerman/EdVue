@@ -36,37 +36,36 @@
                         <Binding Path="Terms" />
                     </BindableLayout.ItemsSource>
                     <BindableLayout.ItemTemplate>
-                        <DataTemplate>
-                            <Button Text="{Binding Title}"
+                            <DataTemplate>
+                                <Button Text="{Binding Title}"
                                     BackgroundColor="LightGray"
                                     TextColor="Black"
                                     Command="{Binding BindingContext.SelectTermCommand, Source={x:Reference RootPage}}"
-                                    CommandParameter="{Binding}" >
-                                <Button.GestureRecognizers>
-                                    <TapGestureRecognizer
-                                NumberOfTapsRequired="2"
-                                Command="{Binding BindingContext.DeleteTermCommand, Source={x:Reference RootPage}}"
-                                CommandParameter="{Binding}" />
-                                </Button.GestureRecognizers>
-                            </Button>
-                        </DataTemplate>
+                                    CommandParameter="{Binding}" />
+                            </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </HorizontalStackLayout>
             </ScrollView>
-            <Button Text="➕ Add Term"
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+            <Button Text="Add Term"
                     BackgroundColor="DarkGray"
                     TextColor="White"
                     Command="{Binding AddTermCommand}" />
+            <Button Text="Delete Term"
+                    BackgroundColor="DarkGray"
+                    TextColor="White"
+                    Command="{Binding DeleteSelectedTermCommand}" />
+                </HorizontalStackLayout>
 
 
-            <VerticalStackLayout Spacing="10" Margin="0,10,0,0">
+                <VerticalStackLayout Spacing="10" Margin="0,10,0,0">
                 <HorizontalStackLayout VerticalOptions="Center">
                     <Label Text="Start Date:" FontSize="16" WidthRequest="100"/>
-                    <DatePicker Date="{Binding SelectedTerm.StartDate}" />
+                        <DatePicker Date="{Binding SelectedTerm.StartDate}" Unfocused="StartDate_Unfocused"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout VerticalOptions="Center">
                     <Label Text="End Date:" FontSize="16" WidthRequest="100"/>
-                    <DatePicker Date="{Binding SelectedTerm.EndDate}" />
+                        <DatePicker Date="{Binding SelectedTerm.EndDate}" Unfocused="EndDate_Unfocused"/>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
 
@@ -102,10 +101,10 @@
                     <CollectionView.Footer>
                         <VerticalStackLayout Padding="10" Margin="0,20,0,20">
                             <Button Text="Add Course"
-                    BackgroundColor="#0A2B4C"
-                    TextColor="White"
-                    HorizontalOptions="Center"
-                    Command="{Binding AddCourseCommand}" />
+                                    BackgroundColor="#0A2B4C"
+                                    TextColor="White"
+                                    HorizontalOptions="Center"
+                                    Command="{Binding AddCourseCommand}" />
                         </VerticalStackLayout>
                     </CollectionView.Footer>
                 </CollectionView>
