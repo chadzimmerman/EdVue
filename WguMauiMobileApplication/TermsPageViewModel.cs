@@ -40,6 +40,9 @@ namespace WguMauiMobileApplication
         public ICommand SelectTermCommand { get; }
         public ICommand AddCourseCommand { get; }
         public ICommand NavigateToCourseCommand { get; }
+        public ICommand DeleteTermCommand { get; }
+        public ICommand AddTermCommand { get; }
+
 
 
 
@@ -51,6 +54,8 @@ namespace WguMauiMobileApplication
             });
 
             AddCourseCommand = new Command(async () => await AddCourse());
+            DeleteTermCommand = new Command<Term>(async term => await DeleteTerm(term));
+            AddTermCommand = new Command(async () => await AddTerm());
 
             NavigateToCourseCommand = new Command<Course>(async (selectedCourse) =>
             {
@@ -84,6 +89,37 @@ namespace WguMauiMobileApplication
             if (Terms.Any())
                 SelectedTerm = Terms.Last();
         }
+
+        private async Task DeleteTerm(Term term)
+        {
+            if (term == null) return;
+
+            bool confirm = await Application.Current.MainPage.DisplayAlert(
+                "Delete Term",
+                $"Are you sure you want to delete \"{term.Title}\"?",
+                "Yes", "No");
+
+            if (confirm)
+            {
+                await DatabaseService.DeleteTermAsync(term);
+                await LoadTerms();
+            }
+        }
+
+        private async Task AddTerm()
+        {
+            var term = new Term
+            {
+                Title = $"Term {Terms.Count + 1}",
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(6)
+            };
+
+            await DatabaseService.AddTermAsync(term);
+            await LoadTerms();
+        }
+
+
 
         //temp delete the existing courses and allow them to reset to 6
         private async Task ResetDataAndLoad()
