@@ -21,8 +21,8 @@
 
                     <Entry x:Name="AssessmentNameEntry" Placeholder="Assessment Name" />
 
-                    <DatePicker x:Name="AssessmentStartDate" />
-                    <DatePicker x:Name="AssessmentEndDate" />
+                <DatePicker x:Name="AssessmentStartDate" Date="{Binding SelectedCourse.StartDate, Mode=TwoWay}" DateSelected="OnDateChanged"/>
+                <DatePicker x:Name="AssessmentEndDate" Date="{Binding SelectedCourse.EndDate, Mode=TwoWay}" DateSelected="OnDateChanged"/>
 
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Set Notification" />

@@ -38,7 +38,13 @@ public partial class CourseAssessmentsView : ContentView
 			return;
 		}
 
-		var newAssessment = new Assessment
+        if (AssessmentStartDate.Date > AssessmentEndDate.Date)
+        {
+            await Application.Current.MainPage.DisplayAlert("Validation Error", "Assessment start date cannot be after end date", "OK");
+            return;
+        }
+
+        var newAssessment = new Assessment
 		{
 			CourseId = _courseId,
 			Name = AssessmentNameEntry.Text,
@@ -114,4 +120,34 @@ public partial class CourseAssessmentsView : ContentView
             AddAssessmentButton.Text = "Update Assessment";
         }
 	}
+
+    private async void OnDateChanged(object sender, DateChangedEventArgs e)
+    {
+        if (BindingContext is CoursesPageViewModel vm && vm.SelectedCourse is Course course)
+        {
+            if (course.StartDate > course.EndDate)
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    "Invalid Dates",
+                    "Course start date cannot be after the end date.",
+                    "OK");
+
+                course.EndDate = course.StartDate;
+                return;
+            }
+
+            if (course.EndDate < course.StartDate)
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    "Invalid Dates",
+                    "Course end date cannot be before the start date.",
+                    "OK");
+
+                course.StartDate = course.EndDate;
+                return;
+            }
+
+            await DatabaseService.UpdateCourseAsync(course);
+        }
+    }
 }

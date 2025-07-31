@@ -35,6 +35,28 @@ public partial class DetailsPage : ContentPage
 
     private async void OnSaveClicked(object sender, EventArgs e)
     {
+        var newStart = StartDatePicker.Date;
+        var newEnd = EndDatePicker.Date;
+        var newDetails = DetailsEditor.Text?.Trim();
+
+        if (newStart > newEnd)
+        {
+            await DisplayAlert("Invalid Dates", "Start date cannot be after the end date.", "OK");
+            return;
+        }
+
+        if (newEnd < newStart)
+        {
+            await DisplayAlert("Invalid Dates", "End date cannot be before the start date.", "OK");
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(newDetails))
+        {
+            await DisplayAlert("Missing Details", "Please enter course details before saving.", "OK");
+            return;
+        }
+
         _course.Name = TitleEntry.Text;
         _course.StartDate = StartDatePicker.Date;
         _course.EndDate = EndDatePicker.Date;

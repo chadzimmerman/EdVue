@@ -8,12 +8,12 @@
             <HorizontalStackLayout VerticalOptions="Center">
                 <Label Text="Start Date:" FontSize="16" WidthRequest="100"/>
                 <DatePicker Date="{Binding SelectedCourse.StartDate, Mode=TwoWay}"
-                            Unfocused="OnDateUnfocused"/>
+                            DateSelected="OnDateChanged"/>
             </HorizontalStackLayout>
             <HorizontalStackLayout VerticalOptions="Center">
                 <Label Text="End Date:" FontSize="16" WidthRequest="100"/>
                 <DatePicker Date="{Binding SelectedCourse.EndDate, Mode=TwoWay}"
-                            Unfocused="OnDateUnfocused"/>
+                            DateSelected="OnDateChanged"/>
 
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="10" VerticalOptions="Center">

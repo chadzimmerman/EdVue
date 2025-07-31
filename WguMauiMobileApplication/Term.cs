@@ -54,9 +54,6 @@ namespace WguMauiMobileApplication
                 }
             }
         }
-        //public DateTime StartDate { get; set; }
-
-        //public DateTime EndDate { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string name) =>

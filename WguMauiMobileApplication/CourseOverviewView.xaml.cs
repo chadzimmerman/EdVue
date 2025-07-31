@@ -10,11 +10,33 @@ public partial class CourseOverviewView : ContentView
 		InitializeComponent();
 	}
 
-    private async void OnDateUnfocused(object sender, FocusEventArgs e)
+    private async void OnDateChanged(object sender, DateChangedEventArgs e)
     {
-        if (BindingContext is CoursesPageViewModel vm && vm.SelectedCourse != null)
+        if (BindingContext is CoursesPageViewModel vm && vm.SelectedCourse is Course course)
         {
-            await DatabaseService.UpdateCourseAsync(vm.SelectedCourse);
+            if (course.StartDate > course.EndDate)
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    "Invalid Dates",
+                    "Course start date cannot be after the end date.",
+                    "OK");
+
+                course.EndDate = course.StartDate;
+                return;
+            }
+
+            if (course.EndDate < course.StartDate)
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    "Invalid Dates",
+                    "Course end date cannot be before the start date.",
+                    "OK");
+
+                course.StartDate = course.EndDate;
+                return;
+            }
+
+            await DatabaseService.UpdateCourseAsync(course);
         }
     }
 
