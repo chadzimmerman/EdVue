@@ -26,6 +26,7 @@ namespace WguMauiMobileApplication.Services
             await _database.CreateTableAsync<Course>();
             await _database.CreateTableAsync<Instructor>();
             await _database.CreateTableAsync<Note>();
+            await _database.CreateTableAsync<Assessment>();
 
             var existingTerms = await _database.Table<Term>().ToListAsync();
             if (!existingTerms.Any())
@@ -59,8 +60,8 @@ namespace WguMauiMobileApplication.Services
                 await _database.DeleteAsync(terms);
             }
 
-               
-            
+
+
         }
 
 
@@ -88,7 +89,7 @@ namespace WguMauiMobileApplication.Services
 
 
         //Courses
-        public static Task<List<Course>> GetCoursesByTermAsync(int termId) => 
+        public static Task<List<Course>> GetCoursesByTermAsync(int termId) =>
             _database.Table<Course>().Where(c => c.TermId == termId).ToListAsync();
 
         public static Task<int> AddCourseAsync(Course course) =>

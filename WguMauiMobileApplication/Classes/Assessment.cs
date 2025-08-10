@@ -8,6 +8,7 @@ using SQLite;
 
 namespace WguMauiMobileApplication.Classes
 {
+    [Table("Assessment")]
     public class Assessment : INotifyPropertyChanged
     {
         [PrimaryKey, AutoIncrement]
