@@ -1,0 +1,9 @@
+using System;
+
+namespace WguMauiMobileApplication.Models;
+
+public interface ISearchable
+{
+    bool Matches(string searchTerm);
+    string GetDisplaytext();
+}

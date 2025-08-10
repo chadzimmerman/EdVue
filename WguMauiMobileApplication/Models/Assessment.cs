@@ -49,6 +49,17 @@ namespace WguMauiMobileApplication.Classes
             set { _notify = value; OnPropertyChanged(nameof(Notify)); }
         }
 
+        //ISearchable Polymorphism
+        public bool Matches(string searchTerm)
+        {
+            return Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public string GetDisplaytext()
+        {
+            return Name;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string name) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SQLite;
+using WguMauiMobileApplication.Models;
 
 namespace WguMauiMobileApplication.Classes
 {
     [Table("Instructor")]
-    public class Instructor : INotifyPropertyChanged
+    public class Instructor : INotifyPropertyChanged, ISearchable
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
@@ -53,6 +54,17 @@ namespace WguMauiMobileApplication.Classes
                     OnPropertyChanged(nameof(Email));
                 }
             }
+        }
+
+        //ISearchable Polymorphism
+        public bool Matches(string searchTerm)
+        {
+            return Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public string GetDisplaytext()
+        {
+            return Name;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

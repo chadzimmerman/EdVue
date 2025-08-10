@@ -4,11 +4,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
 using SQLite;
+using WguMauiMobileApplication.Models;
 
 namespace WguMauiMobileApplication
 {
-    public class Course : INotifyPropertyChanged
+    public class Course : INotifyPropertyChanged, ISearchable
     {
 
         [PrimaryKey, AutoIncrement]
@@ -123,6 +125,17 @@ namespace WguMauiMobileApplication
         }
 
         public string Details { get; set; }
+
+        //ISearchable Polymorphism
+        public bool Matches(string searchTerm)
+        {
+            return Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public string GetDisplaytext()
+        {
+            return Name;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName) =>

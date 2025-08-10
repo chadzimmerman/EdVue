@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SQLite;
+using WguMauiMobileApplication.Models;
 
 namespace WguMauiMobileApplication
 {
-    public class Term : INotifyPropertyChanged
+    public class Term : INotifyPropertyChanged, ISearchable
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
@@ -53,6 +54,17 @@ namespace WguMauiMobileApplication
                     OnPropertyChanged(nameof(EndDate));
                 }
             }
+        }
+
+        //ISearchable Polymorphism
+        public bool Matches(string searchTerm)
+        {
+            return Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public string GetDisplaytext()
+        {
+            return Title;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
