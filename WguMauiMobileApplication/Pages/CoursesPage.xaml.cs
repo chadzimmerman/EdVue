@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using WguMauiMobileApplication.Services;
 
-namespace WguMauiMobileApplication;
+namespace WguMauiMobileApplication.Pages;
 
 [QueryProperty(nameof(CoursesId), "CourseId")]
 public partial class CoursesPage : ContentPage
@@ -18,17 +18,17 @@ public partial class CoursesPage : ContentPage
     }
     private Course _selectedCourse;
     private CoursesPageViewModel ViewModel => (CoursesPageViewModel)BindingContext;
-	public CoursesPage()
-	{
-		InitializeComponent();
+    public CoursesPage()
+    {
+        InitializeComponent();
         var vm = new CoursesPageViewModel(_selectedCourse);
         BindingContext = vm;
         vm.OnTabChanged = SwapTabContent;
-        SwapTabContent(); 
+        SwapTabContent();
     }
 
-	private async void LoadCourse(int id)
-	{
+    private async void LoadCourse(int id)
+    {
         await DatabaseService.Init();
         var course = await DatabaseService.GetCourseByIdAsync(id);
         if (course == null)
@@ -67,5 +67,11 @@ public partial class CoursesPage : ContentPage
             await DatabaseService.UpdateCourseAsync(vm.SelectedCourse);
         }
     }
+
+    private async void BackToTermsButton_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("//TermsPage");
+    }
+
 
 }

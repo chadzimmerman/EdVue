@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
 using WguMauiMobileApplication.Services;
+using WguMauiMobileApplication.Pages;
 
 namespace WguMauiMobileApplication
 {
@@ -30,9 +31,9 @@ namespace WguMauiMobileApplication
                     if (_selectedTerm != null)
                         _selectedTerm.PropertyChanged += SelectedTerm_PropertyChanged;
 
-                    
+
                     _ = LoadCoursesForTerm(_selectedTerm?.Id ?? 0);
-                    
+
                 }
             }
         }
@@ -64,7 +65,7 @@ namespace WguMauiMobileApplication
                     return;
                 }
 
-                await Shell.Current.GoToAsync($"{nameof(CoursesPage)}?CourseId={selectedCourse.Id}");
+                await Shell.Current.GoToAsync($"{nameof(CoursesPage)}?CourseId={selectedCourse.Id}", true);
             });
 
             _ = LoadTerms();
@@ -125,7 +126,7 @@ namespace WguMauiMobileApplication
         private async Task ResetDataAndLoad()
         {
             await DatabaseService.ResetTermsToDefaultAsync();
-            await LoadTerms(); 
+            await LoadTerms();
         }
 
         private async Task AddCourse()
@@ -160,8 +161,8 @@ namespace WguMauiMobileApplication
             var term = sender as Term;
             if (term == null) return;
 
-            if (e.PropertyName == nameof(Term.Title) || 
-                e.PropertyName == nameof(Term.StartDate) || 
+            if (e.PropertyName == nameof(Term.Title) ||
+                e.PropertyName == nameof(Term.StartDate) ||
                 e.PropertyName == nameof(Term.EndDate))
             {
                 if (term.StartDate > term.EndDate)

@@ -69,6 +69,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Pages\TermsPage.xaml">
+    	<Generator>MSBuild:Compile</Generator>
+  	  </MauiXaml>
+	  <MauiXaml Update="Pages\SearchPage.xaml">
+    	<Generator>MSBuild:Compile</Generator>
+  	  </MauiXaml>
+	  <MauiXaml Update="Pages\CoursesPage.xaml">
+    	<Generator>MSBuild:Compile</Generator>
+  	  </MauiXaml>
 	  <MauiXaml Update="Pages\DetailsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -13,6 +13,7 @@ namespace WguMauiMobileApplication
             Routing.RegisterRoute(nameof(InstructorPage), typeof(InstructorPage));
             Routing.RegisterRoute(nameof(NotesPage), typeof(NotesPage));
             Routing.RegisterRoute(nameof(DetailsPage), typeof(DetailsPage));
+            Routing.RegisterRoute(nameof(TermsPage), typeof(TermsPage));
         }
     }
 }

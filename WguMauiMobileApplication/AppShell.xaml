@@ -3,13 +3,26 @@
     x:Class="WguMauiMobileApplication.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:WguMauiMobileApplication"
+    xmlns:pages="clr-namespace:WguMauiMobileApplication.Pages"
     Shell.FlyoutBehavior="Disabled"
     Title="WguMauiMobileApplication">
 
-    <ShellContent
+    <!-- <ShellContent
         Title="Terms"
-        ContentTemplate="{DataTemplate local:TermsPage}"
-        Route="TermsPage" />
+        ContentTemplate="{DataTemplate pages:TermsPage}"
+        Route="TermsPage"/> -->
 
+    <TabBar>
+        <ShellContent
+            Title="Courses"
+            Icon="home.png"
+            ContentTemplate="{DataTemplate pages:TermsPage}"
+            Route="TermsPage"/>
+
+        <ShellContent
+            Title="Search"
+            Icon="search.png"
+            ContentTemplate="{DataTemplate pages:SearchPage}"
+            Route="SearchPage"/>
+    </TabBar>
 </Shell>

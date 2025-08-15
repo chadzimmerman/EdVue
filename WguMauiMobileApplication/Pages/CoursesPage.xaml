@@ -1,55 +1,67 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="WguMauiMobileApplication.CoursesPage"
+             x:Class="WguMauiMobileApplication.Pages.CoursesPage"
              Shell.NavBarIsVisible="False"
              BackgroundColor="#E5E5E5"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             xmlns:local="clr-namespace:WguMauiMobileApplication;assembly=WguMauiMobileApplication"
-             >
+             xmlns:converters="clr-namespace:WguMauiMobileApplication.Converters;assembly=WguMauiMobileApplication"
+             xmlns:local="clr-namespace:WguMauiMobileApplication;assembly=WguMauiMobileApplication">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <local:StatusToColorConverter x:Key="StatusToColorConverter" />
-            <local:BoolToColorConverter x:Key="BoolToColorConverter" />
+            <converters:StatusToColorConverter x:Key="StatusToColorConverter"/>
+            <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
 
     <VerticalStackLayout Spacing="0">
-
-        <Grid BackgroundColor="#0A2B4C" Padding="20" HeightRequest="80">
+        <Grid BackgroundColor="#0A2B4C"
+              Padding="20"
+              HeightRequest="80">
+            <Button
+                ImageSource="home.png"
+                Clicked="BackToTermsButton_Clicked"
+                HorizontalOptions="Start"
+                BackgroundColor="Transparent"
+                VerticalOptions="Start"/>
             <Entry Text="{Binding SelectedCourse.Name, Mode=TwoWay}"
                    Unfocused="OnEntryUnfocused"
                    Placeholder="Course Name"
-                    TextColor="White"
-                    FontSize="20"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    WidthRequest="200"
-                    BackgroundColor="Transparent"
-                    HorizontalTextAlignment="Center"/>
+                   TextColor="White"
+                   FontSize="20"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   WidthRequest="200"
+                   BackgroundColor="Transparent"
+                   HorizontalTextAlignment="Center"/>
         </Grid>
-        
-        
-        <VerticalStackLayout Padding="20" BackgroundColor="White" Spacing="10" Margin="10">
-            <Grid Padding="10" ColumnSpacing="10" ColumnDefinitions="*,*">
+
+
+        <VerticalStackLayout Padding="20"
+                             BackgroundColor="White"
+                             Spacing="10"
+                             Margin="10">
+            <Grid Padding="10"
+                  ColumnSpacing="10"
+                  ColumnDefinitions="*,*">
                 <Button Text="Overview"
                         BackgroundColor="{Binding IsOverviewSelected, Converter={StaticResource BoolToColorConverter}, ConverterParameter='Overview'}"
                         TextColor="White"
                         Grid.Column="0"
-                        Command="{Binding ShowOverviewCommand}" />
+                        Command="{Binding ShowOverviewCommand}"/>
                 <Button Text="Assessments"
                         BackgroundColor="{Binding IsOverviewSelected, Converter={StaticResource BoolToColorConverter}, ConverterParameter='Assessments'}"
                         TextColor="White"
                         Grid.Column="1"
-                        Command="{Binding ShowAssessmentsCommand}" />
+                        Command="{Binding ShowAssessmentsCommand}"/>
             </Grid>
-            <ContentView x:Name="TabContentView" />
+            <ContentView x:Name="TabContentView"/>
         </VerticalStackLayout>
-        
 
 
-        
+
+
 
     </VerticalStackLayout>
 </ContentPage>

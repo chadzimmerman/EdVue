@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WguMauiMobileApplication
+namespace WguMauiMobileApplication.Converters
 {
     public class StatusToColorConverter : IValueConverter
     {

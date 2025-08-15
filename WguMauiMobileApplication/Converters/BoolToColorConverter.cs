@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WguMauiMobileApplication
+namespace WguMauiMobileApplication.Converters
 {
     public class BoolToColorConverter : IValueConverter
     {
@@ -13,7 +13,7 @@ namespace WguMauiMobileApplication
         {
             if (value is bool isOverviewSelected && parameter is string tabName)
             {
-                
+
                 if ((isOverviewSelected && tabName == "Overview") ||
                     (!isOverviewSelected && tabName == "Assessments"))
                 {
