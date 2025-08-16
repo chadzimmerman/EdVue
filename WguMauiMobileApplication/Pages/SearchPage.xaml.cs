@@ -1,4 +1,6 @@
 using WguMauiMobileApplication.Models;
+using WguMauiMobileApplication.Services;
+
 namespace WguMauiMobileApplication.Pages;
 
 public partial class SearchPage : ContentPage
@@ -8,15 +10,23 @@ public partial class SearchPage : ContentPage
 		InitializeComponent();
 	}
 	private List<ISearchable> allSearchItems;
-	private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
+	private async void OnSearchTextChanged(object sender, TextChangedEventArgs e)
 	{
 		string searchTerm = e.NewTextValue;
 
 		if (string.IsNullOrWhiteSpace(searchTerm))
 		{
-			resultsListView.ItemsSource = null; // or all items if you want
+			resultsListView.ItemsSource = null;
 			return;
 		}
+
+		var allSearchItems = new List<ISearchable>();
+
+		allSearchItems.AddRange(await DatabaseService.GetTermsAsync());
+		allSearchItems.AddRange(await DatabaseService.GetAllCoursesAsync());
+		allSearchItems.AddRange(await DatabaseService.GetAllInstructorsAsync());
+		allSearchItems.AddRange(await DatabaseService.GetAllNotesAsync());
+
 
 		var filteredResults = allSearchItems
 			.Where(item => item.Matches(searchTerm))

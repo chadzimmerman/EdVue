@@ -57,6 +57,7 @@ namespace WguMauiMobileApplication
         }
 
         //ISearchable Polymorphism
+
         public bool Matches(string searchTerm)
         {
             return Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase);
@@ -66,6 +67,8 @@ namespace WguMauiMobileApplication
         {
             return Title;
         }
+
+        public string DisplayText => GetDisplaytext();
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string name) =>

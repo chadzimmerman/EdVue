@@ -127,6 +127,7 @@ namespace WguMauiMobileApplication
         public string Details { get; set; }
 
         //ISearchable Polymorphism
+
         public bool Matches(string searchTerm)
         {
             return Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase);
@@ -136,6 +137,8 @@ namespace WguMauiMobileApplication
         {
             return Name;
         }
+
+        public string DisplayText => GetDisplaytext();
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName) =>

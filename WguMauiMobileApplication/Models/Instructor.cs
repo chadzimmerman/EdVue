@@ -67,6 +67,8 @@ namespace WguMauiMobileApplication.Classes
             return Name;
         }
 
+        public string DisplayText => GetDisplaytext();
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

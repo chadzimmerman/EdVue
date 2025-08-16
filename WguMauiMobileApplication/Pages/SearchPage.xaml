@@ -4,8 +4,8 @@
              x:Class="WguMauiMobileApplication.Pages.SearchPage"
              Title="SearchPage">
     <Grid BackgroundColor="#0A2B4C"
-            Padding="20"
-            HeightRequest="80">
+          Padding="20"
+          HeightRequest="80">
         <Entry Text="Search"
                TextColor="White"
                FontSize="20"
@@ -18,8 +18,14 @@
 
     <StackLayout Padding="10">
         <SearchBar x:Name="searchBar"
-                Placeholder="Search..."
-                TextChanged="OnSearchTextChanged"/>
-        <ListView x:Name="resultsListView"/>
+                   Placeholder="Search..."
+                   TextChanged="OnSearchTextChanged"/>
+        <ListView x:Name="resultsListView">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding DisplayText}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </StackLayout>
 </ContentPage>

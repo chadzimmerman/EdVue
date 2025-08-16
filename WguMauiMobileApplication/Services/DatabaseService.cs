@@ -92,6 +92,9 @@ namespace WguMauiMobileApplication.Services
         public static Task<List<Course>> GetCoursesByTermAsync(int termId) =>
             _database.Table<Course>().Where(c => c.TermId == termId).ToListAsync();
 
+        public static Task<List<Course>> GetAllCoursesAsync() =>
+            _database.Table<Course>().ToListAsync();
+
         public static Task<int> AddCourseAsync(Course course) =>
             _database.InsertAsync(course);
 
@@ -131,6 +134,8 @@ namespace WguMauiMobileApplication.Services
         {
             return await _database.InsertAsync(instructor);
         }
+        public static Task<List<Instructor>> GetAllInstructorsAsync() =>
+            _database.Table<Instructor>().ToListAsync();
 
         //Assessments
         public static async Task<List<Assessment>> GetAssessmentsByCourseIdAsync(int courseId)
@@ -177,6 +182,8 @@ namespace WguMauiMobileApplication.Services
         {
             return await _database.DeleteAsync(note);
         }
+        public static Task<List<Note>> GetAllNotesAsync() =>
+            _database.Table<Note>().ToListAsync();
 
 
         //eval data
