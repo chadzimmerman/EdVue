@@ -1,5 +1,5 @@
 ﻿using WguMauiMobileApplication.Services;
-using WguMauiMobileApplication.Classes;
+using WguMauiMobileApplication.Models;
 using __XamlGeneratedCode__;
 
 namespace WguMauiMobileApplication
@@ -11,7 +11,6 @@ namespace WguMauiMobileApplication
             InitializeComponent();
             _ = InitAsync();
             MainPage = new AppShell();
-
         }
 
         private async Task InitAsync()

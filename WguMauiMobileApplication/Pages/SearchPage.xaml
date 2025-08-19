@@ -20,7 +20,10 @@
         <SearchBar x:Name="searchBar"
                    Placeholder="Search..."
                    TextChanged="OnSearchTextChanged"/>
-        <ListView x:Name="resultsListView">
+        <ListView 
+            x:Name="resultsListView"
+            ItemsSource="{Binding SearchResults}"
+            ItemSelected="SearchResultsList_ItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextCell Text="{Binding DisplayText}"/>

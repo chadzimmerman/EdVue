@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WguMauiMobileApplication.Pages.CoursesPage"
-             Shell.NavBarIsVisible="False"
              BackgroundColor="#E5E5E5"
+             Shell.NavBarIsVisible="False"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:converters="clr-namespace:WguMauiMobileApplication.Converters;assembly=WguMauiMobileApplication"
              xmlns:local="clr-namespace:WguMauiMobileApplication;assembly=WguMauiMobileApplication">
@@ -19,12 +19,14 @@
         <Grid BackgroundColor="#0A2B4C"
               Padding="20"
               HeightRequest="80">
-            <Button
-                ImageSource="home.png"
-                Clicked="BackToTermsButton_Clicked"
-                HorizontalOptions="Start"
-                BackgroundColor="Transparent"
-                VerticalOptions="Start"/>
+            <Button ImageSource="arrowleftline.svg"
+                    Clicked="BackButton_Clicked"
+                    FontSize="24"
+                    TextColor="White"
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"/>
+
             <Entry Text="{Binding SelectedCourse.Name, Mode=TwoWay}"
                    Unfocused="OnEntryUnfocused"
                    Placeholder="Course Name"

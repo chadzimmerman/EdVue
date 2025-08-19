@@ -8,7 +8,7 @@ using SQLite;
 using WguMauiMobileApplication.Models;
 
 
-namespace WguMauiMobileApplication.Classes
+namespace WguMauiMobileApplication.Models
 {
     [Table("Note")]
     public class Note : INotifyPropertyChanged, ISearchable

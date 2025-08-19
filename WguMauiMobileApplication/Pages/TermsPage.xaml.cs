@@ -4,10 +4,17 @@ namespace WguMauiMobileApplication.Pages;
 
 public partial class TermsPage : ContentPage
 {
+    private int? _termId;
     public TermsPage()
     {
         InitializeComponent();
         BindingContext = new TermsPageViewModel();
+    }
+
+    public TermsPage(int termId) : this()
+    {
+        _termId = termId;
+        BindingContext = new TermsPageViewModel(termId);
     }
 
     private async void TermTitleEntry_Unfocused(object sender, FocusEventArgs e)

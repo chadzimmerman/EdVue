@@ -1,5 +1,6 @@
 using WguMauiMobileApplication.Models;
 using WguMauiMobileApplication.Services;
+using WguMauiMobileApplication.Pages;
 
 namespace WguMauiMobileApplication.Pages;
 
@@ -34,4 +35,43 @@ public partial class SearchPage : ContentPage
 
 		resultsListView.ItemsSource = filteredResults;
 	}
+
+	private async void SearchResultsList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+	{
+		if (e.SelectedItem == null)
+			return;
+
+		var selectedItem = e.SelectedItem;
+
+		// Navigate based on the type
+		switch (selectedItem)
+		{
+			case Term term:
+				await Shell.Current.GoToAsync($"{nameof(TermsPage)}?termId={term.Id}");
+				break;
+
+			case Course course:
+				await Shell.Current.GoToAsync($"{nameof(CoursesPage)}?courseId={course.Id}");
+				break;
+
+			case Instructor instructor:
+				await Shell.Current.GoToAsync($"{nameof(InstructorPage)}?instructorId={instructor.Id}");
+				break;
+
+			case Note note:
+				await Shell.Current.GoToAsync($"{nameof(NotesPage)}?noteId={note.Id}");
+				break;
+		}
+
+		// Optional: clear selection so item doesn't stay highlighted
+		((ListView)sender).SelectedItem = null;
+	}
+
+	protected override void OnAppearing()
+	{
+		base.OnAppearing();
+		searchBar.Text = string.Empty;
+		resultsListView.ItemsSource = null;
+	}
+
 }

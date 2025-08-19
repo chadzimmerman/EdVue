@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SQLite;
-using WguMauiMobileApplication.Classes;
+using WguMauiMobileApplication.Models;
 
 namespace WguMauiMobileApplication.Services
 {
@@ -85,6 +85,12 @@ namespace WguMauiMobileApplication.Services
                             .Where(t => t.Title == name)
                             .FirstOrDefaultAsync();
         }
+        public static Task<Term> GetTermByIdAsync(int termId) =>
+            _database.Table<Term>()
+                    .Where(t => t.Id == termId)
+                    .FirstOrDefaultAsync();
+
+
 
 
 

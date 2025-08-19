@@ -70,6 +70,25 @@ namespace WguMauiMobileApplication
 
             _ = LoadTerms();
         }
+        public TermsPageViewModel(int termId)
+        {
+            Terms = new ObservableCollection<Term>();
+            Courses = new ObservableCollection<Course>();
+
+            _ = LoadSingleTerm(termId);
+        }
+        private async Task LoadSingleTerm(int termId)
+        {
+            var term = await DatabaseService.GetTermByIdAsync(termId);
+            if (term != null)
+            {
+                Terms.Clear();
+                Terms.Add(term);
+                SelectedTerm = term; 
+            }
+        }
+
+
         private async Task SeedEvaluationDataAndLoad()
         {
             await DatabaseService.Init();

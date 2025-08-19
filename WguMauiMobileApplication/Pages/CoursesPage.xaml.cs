@@ -26,6 +26,16 @@ public partial class CoursesPage : ContentPage
         vm.OnTabChanged = SwapTabContent;
         SwapTabContent();
     }
+    public CoursesPage(Course course)
+    {
+        InitializeComponent();
+        _selectedCourse = course;
+
+        var vm = new CoursesPageViewModel(_selectedCourse);
+        BindingContext = vm;
+        vm.OnTabChanged = SwapTabContent;
+        SwapTabContent();
+    }
 
     private async void LoadCourse(int id)
     {
@@ -68,9 +78,9 @@ public partial class CoursesPage : ContentPage
         }
     }
 
-    private async void BackToTermsButton_Clicked(object sender, EventArgs e)
+    private async void BackButton_Clicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("//TermsPage");
+        await Shell.Current.GoToAsync("..");
     }
 
 

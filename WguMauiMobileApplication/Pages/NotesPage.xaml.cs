@@ -1,5 +1,5 @@
 using System.Text.Json;
-using WguMauiMobileApplication.Classes;
+using WguMauiMobileApplication.Models;
 using WguMauiMobileApplication.Services;
 
 namespace WguMauiMobileApplication.Pages;
@@ -15,6 +15,12 @@ public partial class NotesPage : ContentPage
     {
         InitializeComponent();
         _ = LoadNotesAsync();
+    }
+
+    public NotesPage(Note note)
+    {
+        InitializeComponent();
+        _notes = new List<Note> { note };
     }
 
     private async void OnAddNoteClicked(object sender, EventArgs e)

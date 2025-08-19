@@ -1,42 +1,42 @@
 using System.Collections.ObjectModel;
 using Plugin.LocalNotification;
-using WguMauiMobileApplication.Classes;
+using WguMauiMobileApplication.Models;
 using WguMauiMobileApplication.Services;
 
 namespace WguMauiMobileApplication;
 
 public partial class CourseAssessmentsView : ContentView
 {
-	public ObservableCollection<Assessment> Assessments { get; set; } = new();
+    public ObservableCollection<Assessment> Assessments { get; set; } = new();
 
-	private int _courseId;
+    private int _courseId;
     private int? editingAssessmentId = null;
 
     public CourseAssessmentsView()
-	{
-		InitializeComponent();
-		BindingContext = this;
-	}
+    {
+        InitializeComponent();
+        BindingContext = this;
+    }
 
-	public async void LoadForCourse(int courseId)
-	{
-		_courseId = courseId;
-		var assessments = await DatabaseService.GetAssessmentsByCourseIdAsync(courseId);
-		Assessments.Clear();
-		foreach (var a in assessments)
-		{
-			Assessments.Add(a);
-		}
-	}
+    public async void LoadForCourse(int courseId)
+    {
+        _courseId = courseId;
+        var assessments = await DatabaseService.GetAssessmentsByCourseIdAsync(courseId);
+        Assessments.Clear();
+        foreach (var a in assessments)
+        {
+            Assessments.Add(a);
+        }
+    }
 
-	private async void OnAddAssessmentClicked(object sender, EventArgs e)
-	{
-		if (string.IsNullOrWhiteSpace(AssessmentNameEntry.Text) ||
-			AssessmentTypePicker.SelectedIndex == -1)
-		{
-			await Application.Current.MainPage.DisplayAlert("Validation Error", "Please enter a name and select a type", "OK");
-			return;
-		}
+    private async void OnAddAssessmentClicked(object sender, EventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(AssessmentNameEntry.Text) ||
+            AssessmentTypePicker.SelectedIndex == -1)
+        {
+            await Application.Current.MainPage.DisplayAlert("Validation Error", "Please enter a name and select a type", "OK");
+            return;
+        }
 
         if (AssessmentStartDate.Date > AssessmentEndDate.Date)
         {
@@ -45,18 +45,18 @@ public partial class CourseAssessmentsView : ContentView
         }
 
         var newAssessment = new Assessment
-		{
-			CourseId = _courseId,
-			Name = AssessmentNameEntry.Text,
-			Type = AssessmentTypePicker.SelectedItem.ToString(),
-			StartDate = AssessmentStartDate.Date,
-			EndDate = AssessmentEndDate.Date,
-			Notify = NotifySwitch.IsToggled
-		};
+        {
+            CourseId = _courseId,
+            Name = AssessmentNameEntry.Text,
+            Type = AssessmentTypePicker.SelectedItem.ToString(),
+            StartDate = AssessmentStartDate.Date,
+            EndDate = AssessmentEndDate.Date,
+            Notify = NotifySwitch.IsToggled
+        };
 
-		await DatabaseService.SaveAssessmentAsync(newAssessment);
+        await DatabaseService.SaveAssessmentAsync(newAssessment);
 
-		Assessments.Add(newAssessment);
+        Assessments.Add(newAssessment);
 
         if (newAssessment.Notify)
         {
@@ -67,7 +67,7 @@ public partial class CourseAssessmentsView : ContentView
                 Schedule = new NotificationRequestSchedule
                 {
                     NotifyTime = newAssessment.StartDate,
-					//NotifyTime = DateTime.Now.AddSeconds(10),
+                    //NotifyTime = DateTime.Now.AddSeconds(10),
                     RepeatType = NotificationRepeat.No
                 }
             };
@@ -90,27 +90,27 @@ public partial class CourseAssessmentsView : ContentView
     }
 
     private async void OnDeleteAssessmentClicked(object sender, EventArgs e)
-	{
-		var button = (Button)sender;
-		var id = (int)button.CommandParameter;
-		var toRemove = Assessments.FirstOrDefault(a => a.Id == id);
-		if (toRemove != null)
-		{
-			await DatabaseService.DeleteAssessmentAsync(toRemove);
-			Assessments.Remove(toRemove);
-		}
-	}
+    {
+        var button = (Button)sender;
+        var id = (int)button.CommandParameter;
+        var toRemove = Assessments.FirstOrDefault(a => a.Id == id);
+        if (toRemove != null)
+        {
+            await DatabaseService.DeleteAssessmentAsync(toRemove);
+            Assessments.Remove(toRemove);
+        }
+    }
 
-	private void OnEditAssessmentClicked(object sender, EventArgs e)
-	{
-		var button = (Button)sender;
-		var id = (int)button.CommandParameter;
-		var toEdit = Assessments.FirstOrDefault(a => a.Id == id);
+    private void OnEditAssessmentClicked(object sender, EventArgs e)
+    {
+        var button = (Button)sender;
+        var id = (int)button.CommandParameter;
+        var toEdit = Assessments.FirstOrDefault(a => a.Id == id);
 
-		if (toEdit != null)
-		{
-			AssessmentNameEntry.Text = toEdit.Name;
-			AssessmentTypePicker.SelectedItem = toEdit.Type;
+        if (toEdit != null)
+        {
+            AssessmentNameEntry.Text = toEdit.Name;
+            AssessmentTypePicker.SelectedItem = toEdit.Type;
             AssessmentStartDate.Date = toEdit.StartDate;
             AssessmentEndDate.Date = toEdit.EndDate;
             NotifySwitch.IsToggled = toEdit.Notify;
@@ -119,7 +119,7 @@ public partial class CourseAssessmentsView : ContentView
             editingAssessmentId = toEdit.Id;
             AddAssessmentButton.Text = "Update Assessment";
         }
-	}
+    }
 
     private async void OnDateChanged(object sender, DateChangedEventArgs e)
     {

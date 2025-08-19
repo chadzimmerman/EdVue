@@ -7,11 +7,6 @@
     Shell.FlyoutBehavior="Disabled"
     Title="WguMauiMobileApplication">
 
-    <!-- <ShellContent
-        Title="Terms"
-        ContentTemplate="{DataTemplate pages:TermsPage}"
-        Route="TermsPage"/> -->
-
     <TabBar>
         <ShellContent
             Title="Courses"

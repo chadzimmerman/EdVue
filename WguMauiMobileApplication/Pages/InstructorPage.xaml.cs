@@ -1,4 +1,4 @@
-using WguMauiMobileApplication.Classes;
+using WguMauiMobileApplication.Models;
 using WguMauiMobileApplication.Services;
 
 
@@ -43,12 +43,17 @@ public partial class InstructorPage : ContentPage
 	{
 		InitializeComponent();
 	}
+    public InstructorPage(Instructor instructor)
+    {
+        InitializeComponent();
+        _instructor = instructor;
+    }
 
     private async void LoadInstructor(int id)
     {
         _instructor = await DatabaseService.GetInstructorByIdAsync(id);
-		if (_instructor == null)
-		{
+        if (_instructor == null)
+        {
             _instructor = new Instructor
             {
                 Id = id,
@@ -57,7 +62,7 @@ public partial class InstructorPage : ContentPage
                 Phone = ""
             };
             await DisplayAlert("Error", "Instructor not found.", "OK");
-		}
+        }
         BindingContext = _instructor;
     }
 

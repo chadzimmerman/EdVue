@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using SQLite;
 using WguMauiMobileApplication.Models;
 
-namespace WguMauiMobileApplication.Classes
+namespace WguMauiMobileApplication.Models
 {
     [Table("Instructor")]
     public class Instructor : INotifyPropertyChanged, ISearchable

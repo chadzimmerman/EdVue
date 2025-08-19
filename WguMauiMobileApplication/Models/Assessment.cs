@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SQLite;
 
-namespace WguMauiMobileApplication.Classes
+namespace WguMauiMobileApplication.Models
 {
     [Table("Assessment")]
     public class Assessment : INotifyPropertyChanged
