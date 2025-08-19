@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WguMauiMobileApplication.Pages.ReportsPage"
+             Shell.NavBarIsVisible="False"
+             Title="ReportPage">
+
+    <VerticalStackLayout Padding="10"
+                         Spacing="10">
+        <Label x:Name="ReportTitleLabel"
+               Text="Reports"
+               FontSize="24"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"/>
+
+        <Label x:Name="ReportTimestampLabel"
+               Text=""
+               FontSize="14"
+               HorizontalOptions="Center"/>
+        <Button Text="Generate Report"
+                Clicked="GenerateReport_Clicked"/>
+
+        <CollectionView x:Name="ReportCollectionView"
+                        Margin="0,20,0,0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="*,*,*">
+                        <Label Text="{Binding Term}"
+                               Grid.Column="0"/>
+                        <Label Text="{Binding Course}"
+                               Grid.Column="1"/>
+                        <Label Text="{Binding Status}"
+                               Grid.Column="2"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

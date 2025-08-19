@@ -13,11 +13,15 @@
             Icon="home.png"
             ContentTemplate="{DataTemplate pages:TermsPage}"
             Route="TermsPage"/>
-
         <ShellContent
             Title="Search"
             Icon="search.png"
             ContentTemplate="{DataTemplate pages:SearchPage}"
             Route="SearchPage"/>
+        <ShellContent 
+            Title="Reports" 
+            Icon="report.png" 
+            ContentTemplate="{DataTemplate pages:ReportsPage}" 
+            Route="ReportsPage"/>
     </TabBar>
 </Shell>
