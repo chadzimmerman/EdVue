@@ -23,7 +23,7 @@ public partial class SearchPage : ContentPage
 
 		var allSearchItems = new List<ISearchable>();
 
-		allSearchItems.AddRange(await DatabaseService.GetTermsAsync());
+		//allSearchItems.AddRange(await DatabaseService.GetTermsAsync());
 		allSearchItems.AddRange(await DatabaseService.GetAllCoursesAsync());
 		allSearchItems.AddRange(await DatabaseService.GetAllInstructorsAsync());
 		allSearchItems.AddRange(await DatabaseService.GetAllNotesAsync());
@@ -46,9 +46,9 @@ public partial class SearchPage : ContentPage
 		// Navigate based on the type
 		switch (selectedItem)
 		{
-			case Term term:
-				await Shell.Current.GoToAsync($"{nameof(TermsPage)}?termId={term.Id}");
-				break;
+			// case Term term:
+			// 	await Shell.Current.GoToAsync($"{nameof(TermsPage)}?termId={term.Id}");
+			// 	break;
 
 			case Course course:
 				await Shell.Current.GoToAsync($"{nameof(CoursesPage)}?courseId={course.Id}");
