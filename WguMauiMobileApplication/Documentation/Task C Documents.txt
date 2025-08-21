@@ -1,0 +1,261 @@
+1. Design Document
+1.1 Overview
+This mobile application tracks all of your course data and manages it with built-in .NET Maui libraries using an MVVM architecture. It allows the user to manage their school terms, courses, instructors, notes, and even generate progress reports to keep them motivated.
+
+Key Features:
+•	Management of academic terms and courses
+•	Quick search feature to access instructors, notes, and courses
+•	Timestamped report generation for visualizing progress
+•	Secure data operations with a local SQLite database right on your device
+•	User-friendly interface
+ 
+1.2 Class Diagram Document (See Visual Aid Below)
+Main Models:
+•	Term: Represents a semester
+•	Course: Represents a course, linked to a Term and Instructor
+•	Instructor: Represents course instructors with contact info
+•	Note: User notes linked to courses
+•	Assessment: Represents course assessments
+•	ISearchable: Inherited class for making a page searchable
+•	CourseReport: Used for combining terms, course, and status for generating reports
+
+Service:
+•	DatabaseService: Handles all SQLite operations, including CRUD operations. Ensures parameterized queries by default.
+
+Pages:
+•	TermsPage
+•	CoursesPage
+•	CourseDetailsPage
+•	InstructorPage
+•	NotesPage
+•	SearchPage
+•	ReportsPage
+
+Views (These are the different view tabs within CoursesPage):
+•	CourseAssessmentView
+•	CourseOverviewView
+
+ViewModels:
+•	TermViewModel
+•	CourseViewModel
+
+ 
+1.3 Architecture / Design Diagram Document
+MVVM Flow:
+User Interface (Incl. Views) <--> ViewModels <--> Models <--> DatabaseService
+Navigation Flow:
+•	Bottom tabs: Courses, Search, Reports
+•	Search results navigate to respective pages
+•	Back buttons handled by Shell navigation
+ 
+2. GitLab Repository
+•	Repository: https://gitlab.com/wgu-gitlab-environment/student-repos/czimme12/c971-mobile-application-development-using-c-sharp/-/network/Working?ref_type=heads 
+•	Branch / Commit: C_Task_Complete_2025-08-21 (REDO NAME FOR FINAL COMMIT HERE|)
+ 
+3. User Guide + Maintenance Setup Document
+3.1 Prerequisites
+•	Visual Studio 2022 with .NET MAUI workload
+•	Android emulator (for testing)
+•	Git (for cloning the repository)
+3.2 Steps for Setup
+1.	Clone the repository:
+git clone https://gitlab.com/username/wgu-maui-app.git
+2.	Open the solution in Visual Studio.
+3.	Restore NuGet packages (VS usually does this automatically).
+4.	Build the solution to ensure there are no errors.
+5.	Run on your target platform (i.e., Android emulator).
+3.3 Development Notes
+•	All database calls are parameterized for security purposes.
+•	Input validation is implemented for key fields.
+•	Reports include date/time stamps for future audits
+•	Scalability is ensured by MVVM design, which allows for easy addition of new pages or features.
+ 
+4. User Guide – Running the Application Document
+4.1 Navigation
+•	Courses Tab: This is your landing page. Here, you will automatically load into the Terms view and can add or navigate to courses. There, you can access course details, assessments, instructors, and notes.
+•	Search Tab: Search across Courses, Instructors, and Notes. Results are clickable and navigable.
+•	Reports Tab: Generate progress reports showing a course’s status. Reports include date/time stamps and title.
+4.2 Using Features
+1.	Add / Update / Delete Data:
+o	Tap the “Add Term” or “Add Course” button to add a new term or course.
+o	Tap the “Delete Term” button to delete the currently selected term.
+o	Term names are editable at the top of the app on any given term view.
+o	Start and end dates are editable by clicking on the underlined date and selecting a new date. 
+o	When a course is made, you can visit it by clicking the “Course Info” button on the newly created course object. 
+o	Inside the course, clicking on the “Assessment” tab will allow you to add, edit, or delete assessments by clicking on their respective buttons. 
+o	By clicking the “Overview” tab button, you can edit a course start or end date, as well as select a toggle that will determine if the course is active or complete. 
+o	Clicking on the Instructor arrow will allow you to add, edit, or delete the instructor’s name, phone number, and email. You must click save for it to persist. 
+o	By clicking the Note arrow, you can add and edit notes by clicking the “Add” button or editing the title or body text field, respectively. 
+o	You can delete a note by clicking the “X” at the top right of a note. 
+o	You can share a note to a third-party app or service by clicking the “Share” button. 
+o	You can click on the Details arrow to navigate to the details page. Here you can add or delete details about the course by selecting the appropriate button. 
+o	You can edit the details page by directly selecting the field and changing the information. 
+o	You can click the “Set Alerts for Start/End Date” button to set a notification for the start or end of a course. 
+o	You must click the “Save” button to persist the changes. 
+o	You can tap on the “Search” tab at the bottom of the app to navigate and use the search feature. 
+2.	Generate Report:
+o	Click on the “Reports” tab at the bottom of the app.
+o	Tap the “Generate Report” button in the Reports tab.
+o	The page displays a table with columns: Term | Course | Status, with a timestamp.
+3.	Navigation:
+o	Back buttons appear on sub-pages.
+o	The Terms page does not have a back button, as it is the root.
+4.3 Notes
+•	All data is stored locally in SQLite.
+•	Reports are viewable directly in the app interface.
+
+Class Diagram: 
+──────────────────────────────
+        Term
+──────────────────────────────
+- Id: int
+- Title: string
+- StartDate: DateTime
+- EndDate: DateTime
+──────────────────────────────
++ Matches(string searchTerm)
++ GetDisplaytext()
++ DisplayText()
++ PropertyChangedEventHandler()
++ OnPropertyChanged(string name)
+──────────────────────────────
+
+            
+Term ────────── * Course
+           
+
+──────────────────────────────
+        Course
+──────────────────────────────
+- Id: int
+- Name: string
+- Code: string
+- Status: string
+- StartDate: DateTime
+- EndDate: DateTime
+- TermId: int
+- InstructorId: int
+- CoursePageRoute: string
+- IsActive: bool
+- Details: String
+──────────────────────────────
++ Matches(string searchTerm)
++ GetDisplaytext()
++ DisplayText()
++ PropertyChangedEventHandler()
++ OnPropertyChanged(string propertyName)
+
+──────────────────────────────
+
+
+Instructor ────────── * Course
+
+──────────────────────────────
+       Instructor
+──────────────────────────────
+- Id: int
+- Name: string
+- Phone: string
+- Email: string
+──────────────────────────────
++ Matches(string searchTerm)
++ GetDisplaytext()
++ DisplayText()
++ PropertyChangedEventHandler()
++ OnPropertyChanged(string propertyName)
+──────────────────────────────
+
+
+──────────────────────────────
+       Note
+──────────────────────────────
+- Id: int
+- Title: string
+- Body: string
+- CourseId: int
+──────────────────────────────
++ Matches(string searchTerm)
++ GetDisplaytext()
++ DisplayText()
++ PropertyChangedEventHandler()
++ OnPropertyChanged(string propertyName)
+──────────────────────────────
+
+
+──────────────────────────────
+     Assessment
+──────────────────────────────
+- Id: int
+-CourseId: int
+- Name: string
+- Type: string
+- StartDate: DateTime
+- EndDate: DateTime
+- Notify: bool
+──────────────────────────────
++ Matches(string searchTerm)
++ GetDisplaytext()
++ DisplayText()
++ PropertyChangedEventHandler()
++ OnPropertyChanged(string propertyName)
+──────────────────────────────
+
+
+──────────────────────────────
+     ISearchable
+──────────────────────────────
+- Matches: bool
+- GetDisplaytext(): string
+──────────────────────────────
+
+
+──────────────────────────────
+     CourseReport
+──────────────────────────────
+- Term: string
+- Course: string
+- Status: string
+──────────────────────────────
+
+
+──────────────────────────────
+    DatabaseService
+──────────────────────────────
+- _database: SQLiteAsyncConnection
+──────────────────────────────
++ Init()
++ ResetTermsToDefaultAsync(): Task
++ GetTermsAsync()
++ AddTermAsync(term)
++ UpdateTermAsync(term)
++ DeleteTermAsync(term)
++ GetTermByNameAsync(name: string): Task<Term>
++ GetTermByIdAsync(termId: int): Task<Term>
++ GetAllCoursesAsync(): Task<List<Course>>
++ GetCoursesByTermAsync(termId)
++ AddCourseAsync(course)
++ GetCourseByIdAsync(id: int): Task<Course>  
++ UpdateCourseAsync(course)
++ DeleteCourseAsync(course)
+
++ AddInstructorAsync(instr)
++ UpdateInstructorAsync(instr)
++ GetInstructorByIdAsync(id: int): Task<Instructor>
++ GetAllInstructorsAsync()
+
++ GetAssessmentsByCourseIdAsync(courseId)
++ SaveAssessmentAsync(assessment)
++ DeleteAssessmentAsync(assessment)
+
++ GetNotesAsync()
++ AddNoteAsync(note)
++ UpdateNoteAsync(note)
++ DeleteNoteAsync(note)
++ GetAllNotesAsync(): Task<List<Note>>
+
++ SeedDemoData(): Task
+──────────────────────────────
+
+
+
+
