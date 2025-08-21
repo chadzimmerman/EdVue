@@ -2,23 +2,24 @@ using Plugin.LocalNotification;
 using WguMauiMobileApplication.Services;
 
 namespace WguMauiMobileApplication.Pages;
+
 [QueryProperty(nameof(CourseId), "courseId")]
 public partial class DetailsPage : ContentPage
 {
-	private Course _course;
+    private Course _course;
     private int courseId;
     public int CourseId
     {
         get => courseId;
-            set
+        set
         {
             courseId = value;
             LoadCourseDetails(courseId);
         }
     }
-	public DetailsPage()
-	{
-		InitializeComponent();
+    public DetailsPage()
+    {
+        InitializeComponent();
     }
 
     private async void LoadCourseDetails(int courseId)
@@ -88,7 +89,7 @@ public partial class DetailsPage : ContentPage
             Description = $"Your course starts today!",
             Schedule = new NotificationRequestSchedule
             {
-                NotifyTime = _course.StartDate.Date, //set for 12:00AM, change later if you need
+                NotifyTime = _course.StartDate.Date, //set for 12:00AM alert on the course starting day, change to DateTime.Now.AddSeconds(5) for testing 
                 NotifyRepeatInterval = TimeSpan.FromDays(1),
                 RepeatType = NotificationRepeat.No
             }

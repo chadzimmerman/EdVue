@@ -64,6 +64,13 @@ namespace WguMauiMobileApplication.Services
 
         }
 
+        //uncomment this out when testing, recomment out and rebuild when done testing
+        // public DatabaseService(SQLiteAsyncConnection connection)
+        // {
+        //             _database = connection;
+        // }
+
+
 
 
         //Terms
