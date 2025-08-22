@@ -44,30 +44,74 @@ public partial class CourseAssessmentsView : ContentView
             return;
         }
 
-        var newAssessment = new Assessment
+        // var newAssessment = new Assessment
+        // {
+        //     CourseId = _courseId,
+        //     Name = AssessmentNameEntry.Text,
+        //     Type = AssessmentTypePicker.SelectedItem.ToString(),
+        //     StartDate = AssessmentStartDate.Date,
+        //     EndDate = AssessmentEndDate.Date,
+        //     Notify = NotifySwitch.IsToggled
+        // };
+
+        // await DatabaseService.SaveAssessmentAsync(newAssessment);
+
+        // Assessments.Add(newAssessment);
+
+        Assessment assessment;
+
+        if (editingAssessmentId.HasValue)
         {
-            CourseId = _courseId,
-            Name = AssessmentNameEntry.Text,
-            Type = AssessmentTypePicker.SelectedItem.ToString(),
-            StartDate = AssessmentStartDate.Date,
-            EndDate = AssessmentEndDate.Date,
-            Notify = NotifySwitch.IsToggled
-        };
+            // Update existing assessment
+            assessment = Assessments.First(a => a.Id == editingAssessmentId.Value);
+            assessment.Name = AssessmentNameEntry.Text;
+            assessment.Type = AssessmentTypePicker.SelectedItem.ToString();
+            assessment.StartDate = AssessmentStartDate.Date;
+            assessment.EndDate = AssessmentEndDate.Date;
+            assessment.Notify = NotifySwitch.IsToggled;
 
-        await DatabaseService.SaveAssessmentAsync(newAssessment);
+            await DatabaseService.SaveAssessmentAsync(assessment);
 
-        Assessments.Add(newAssessment);
+            // Reset editing
+            editingAssessmentId = null;
+            AddAssessmentButton.Text = "Add Assessment";
+        }
+        else
+        {
+            // Add new assessment
+            assessment = new Assessment
+            {
+                CourseId = _courseId,
+                Name = AssessmentNameEntry.Text,
+                Type = AssessmentTypePicker.SelectedItem.ToString(),
+                StartDate = AssessmentStartDate.Date,
+                EndDate = AssessmentEndDate.Date,
+                Notify = NotifySwitch.IsToggled
+            };
 
-        if (newAssessment.Notify)
+            await DatabaseService.SaveAssessmentAsync(assessment);
+            Assessments.Add(assessment);
+        }
+
+        // Refresh CollectionView
+        AssessmentsListView.ItemsSource = null;
+        AssessmentsListView.ItemsSource = Assessments;
+
+        // Clear form
+        AssessmentNameEntry.Text = string.Empty;
+        AssessmentTypePicker.SelectedIndex = -1;
+        NotifySwitch.IsToggled = false;
+
+        if (assessment.Notify)
         {
             var startNotification = new NotificationRequest
             {
                 Title = "Assessment Starting",
-                Description = $"{newAssessment.Name} starts today!",
+                Description = $"{assessment.Name} starts today!",
                 Schedule = new NotificationRequestSchedule
                 {
-                    NotifyTime = newAssessment.StartDate,
-                    //NotifyTime = DateTime.Now.AddSeconds(10),
+                    NotifyTime = assessment.StartDate,
+                    ////NotifyTime = DateTime.Now.AddSeconds(10),
                     RepeatType = NotificationRepeat.No
                 }
             };
@@ -75,10 +119,10 @@ public partial class CourseAssessmentsView : ContentView
             var endNotification = new NotificationRequest
             {
                 Title = "Assessment Due",
-                Description = $"{newAssessment.Name} is due today!",
+                Description = $"{assessment.Name} is due today!",
                 Schedule = new NotificationRequestSchedule
                 {
-                    NotifyTime = newAssessment.EndDate,
+                    NotifyTime = assessment.EndDate,
                     RepeatType = NotificationRepeat.No
                 }
             };

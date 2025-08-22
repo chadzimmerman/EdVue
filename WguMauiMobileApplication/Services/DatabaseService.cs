@@ -175,6 +175,7 @@ namespace WguMauiMobileApplication.Services
             return await _database.DeleteAsync(assessment);
         }
 
+
         //Notes
         public async Task<List<Note>> GetNotesAsync()
         {

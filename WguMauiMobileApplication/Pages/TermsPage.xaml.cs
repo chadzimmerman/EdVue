@@ -17,6 +17,16 @@ public partial class TermsPage : ContentPage
         BindingContext = new TermsPageViewModel(termId);
     }
 
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (BindingContext is TermsPageViewModel vm)
+        {
+            vm.LoadTerms();
+        }
+    }
+
     private async void TermTitleEntry_Unfocused(object sender, FocusEventArgs e)
     {
         if (BindingContext is TermsPageViewModel vm && vm.SelectedTerm != null)

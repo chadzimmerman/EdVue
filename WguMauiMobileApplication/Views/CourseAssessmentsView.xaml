@@ -2,51 +2,67 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WguMauiMobileApplication.CourseAssessmentsView">
-    <VerticalStackLayout x:Name="AssessmentStack" Padding="10" Spacing="15">
-            <Frame BorderColor="LightGray" Padding="10">
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="Add New Assessment" FontAttributes="Bold" />
+    <VerticalStackLayout x:Name="AssessmentStack"
+            Padding="10"
+            Spacing="15">
+        <Frame BorderColor="LightGray"
+                Padding="10">
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Add New Assessment"
+                        FontAttributes="Bold"/>
 
-                    <HorizontalStackLayout>
-                        <Label Text="Type:" />
-                        <Picker x:Name="AssessmentTypePicker" Title="Select Type">
-                            <Picker.ItemsSource>
-                                <x:Array Type="{x:Type x:String}">
-                                    <x:String>Objective</x:String>
-                                    <x:String>Performance</x:String>
-                                </x:Array>
-                            </Picker.ItemsSource>
-                        </Picker>
-                    </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Text="Type:"/>
+                    <Picker x:Name="AssessmentTypePicker"
+                            Title="Select Type">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Objective</x:String>
+                                <x:String>Performance</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </HorizontalStackLayout>
 
-                    <Entry x:Name="AssessmentNameEntry" Placeholder="Assessment Name" />
+                <Entry x:Name="AssessmentNameEntry"
+                        Placeholder="Assessment Name"/>
 
-                <DatePicker x:Name="AssessmentStartDate" Date="{Binding SelectedCourse.StartDate, Mode=TwoWay}" DateSelected="OnDateChanged"/>
-                <DatePicker x:Name="AssessmentEndDate" Date="{Binding SelectedCourse.EndDate, Mode=TwoWay}" DateSelected="OnDateChanged"/>
+                <DatePicker x:Name="AssessmentStartDate"
+                        Date="{Binding SelectedCourse.StartDate, Mode=TwoWay}"
+                        DateSelected="OnDateChanged"/>
+                <DatePicker x:Name="AssessmentEndDate"
+                        Date="{Binding SelectedCourse.EndDate, Mode=TwoWay}"
+                        DateSelected="OnDateChanged"/>
 
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="Set Notification" />
-                        <Switch x:Name="NotifySwitch" />
-                    </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Set Notification"/>
+                    <Switch x:Name="NotifySwitch"/>
+                </StackLayout>
 
-                <Button Text="Add Assesment" Clicked="OnAddAssessmentClicked" x:Name="AddAssessmentButton" />
-                </VerticalStackLayout>
-            </Frame>
+                <Button Text="Add Assesment"
+                        Clicked="OnAddAssessmentClicked"
+                        x:Name="AddAssessmentButton"/>
+            </VerticalStackLayout>
+        </Frame>
 
-            <Label Text="Assessments:" FontAttributes="Bold" />
-            <CollectionView x:Name="AssessmentsListView" 
-                            ItemsSource="{Binding Assessments}"
-                            ItemsLayout="HorizontalList"
-                            HeightRequest="300">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame BorderColor="Gray" Margin="0,5" Padding="10">
-                            <VerticalStackLayout>
-                                <Label Text="{Binding Name}" FontAttributes="Bold"/>
-                                <Label Text="{Binding Type}" />
-                                <Label Text="{Binding StartDate, StringFormat='Start: {0:d}'}" />
-                                <Label Text="{Binding EndDate, StringFormat='End: {0:d}'}" />
-                                <Label Text="{Binding Notify, StringFormat='Notify: {0}'}" />
+        <Label Text="Assessments:"
+                FontAttributes="Bold"/>
+        <CollectionView x:Name="AssessmentsListView"
+                        ItemsSource="{Binding Assessments}"
+                        ItemsLayout="HorizontalList"
+                        HeightRequest="300">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BorderColor="Gray"
+                            Margin="0,5"
+                            Padding="10">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Name}"
+                                    FontAttributes="Bold"/>
+                            <Label Text="{Binding Type}"/>
+                            <Label Text="{Binding StartDate, StringFormat='Start: {0:d}'}"/>
+                            <Label Text="{Binding EndDate, StringFormat='End: {0:d}'}"/>
+                            <Label Text="{Binding Notify, StringFormat='Notify: {0}'}"/>
                             <HorizontalStackLayout Spacing="10">
                                 <Button Text="Edit"
                                         Clicked="OnEditAssessmentClicked"
@@ -57,13 +73,14 @@
                                 <Button Text="Delete"
                                         Clicked="OnDeleteAssessmentClicked"
                                         HorizontalOptions="End"
-                                        StyleClass="SmallButton" />
+                                        StyleClass="SmallButton"
+                                        CommandParameter="{Binding Id}"/>
                             </HorizontalStackLayout>
                         </VerticalStackLayout>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
-        </VerticalStackLayout>
+    </VerticalStackLayout>
 </ContentView>

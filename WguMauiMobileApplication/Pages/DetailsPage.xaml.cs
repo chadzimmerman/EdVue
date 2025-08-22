@@ -75,7 +75,7 @@ public partial class DetailsPage : ContentPage
 
         await DatabaseService.DeleteCourseAsync(_course);
         await DisplayAlert("Deleted", "Course deleted.", "OK");
-        await Navigation.PopAsync();  // Go back
+        await Navigation.PopToRootAsync();  // Go back
     }
 
     private void OnSetAlertsClicked(object sender, EventArgs e)
@@ -89,7 +89,7 @@ public partial class DetailsPage : ContentPage
             Description = $"Your course starts today!",
             Schedule = new NotificationRequestSchedule
             {
-                NotifyTime = _course.StartDate.Date, //set for 12:00AM alert on the course starting day, change to DateTime.Now.AddSeconds(5) for testing 
+                NotifyTime = DateTime.Now.AddSeconds(5), //set for 12:00AM alert on the course starting day, change to DateTime.Now.AddSeconds(5) for testing _course.StartDate.Date
                 NotifyRepeatInterval = TimeSpan.FromDays(1),
                 RepeatType = NotificationRepeat.No
             }
