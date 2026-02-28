@@ -19,6 +19,9 @@ This is a cross-platform mobile application built using the .NET MAUI framework 
 - **Validation** for course instructor email/phone and empty fields.
 
 ---
+<img width="358" height="757" alt="Screenshot 2026-02-28 at 3 41 46 PM" src="https://github.com/user-attachments/assets/f9477a4a-7564-40fc-a36a-5e4ef76b5f70" />
+<img width="358" height="757" alt="Screenshot 2026-02-28 at 3 42 29 PM" src="https://github.com/user-attachments/assets/735f7bfa-07c5-4d67-a947-a1eb842a0c57" />
+<img width="358" height="757" alt="Screenshot 2026-02-28 at 3 42 57 PM" src="https://github.com/user-attachments/assets/40227bea-717d-4381-b78d-980d466b24a5" />
 
 ## 📚 Application Structure
 
