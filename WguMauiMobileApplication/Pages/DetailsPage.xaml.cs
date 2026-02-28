@@ -89,7 +89,7 @@ public partial class DetailsPage : ContentPage
             Description = $"Your course starts today!",
             Schedule = new NotificationRequestSchedule
             {
-                NotifyTime = DateTime.Now.AddSeconds(5), //set for 12:00AM alert on the course starting day, change to DateTime.Now.AddSeconds(5) for testing _course.StartDate.Date
+                NotifyTime = _course.StartDate.Date, //set for 12:00AM alert on the course starting day, change to DateTime.Now.AddSeconds(5) for testing
                 NotifyRepeatInterval = TimeSpan.FromDays(1),
                 RepeatType = NotificationRepeat.No
             }
